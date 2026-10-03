@@ -1,9 +1,10 @@
 import type { Metadata, Viewport } from "next";
-import { Instrument_Serif } from "next/font/google";
+import { Bodoni_Moda } from "next/font/google";
 import localFont from "next/font/local";
 import "./globals.css";
-const display = Instrument_Serif({
-  weight: "400",
+import "./reference.css";
+const display = Bodoni_Moda({
+  weight: ["400", "700", "900"],
   style: ["normal", "italic"],
   subsets: ["latin"],
   variable: "--font-display",

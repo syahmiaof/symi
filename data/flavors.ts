@@ -36,7 +36,7 @@ export const flavors = [
     id: "choco",
     number: "04",
     name: "Choco Almond Crunch",
-    title: ["Choco Almond", "Crunch"],
+    title: ["Choco", "Almond"],
     notes: ["Rich", "Nutty", "Indulgent"],
     description: "Chocolate, almonds and the crunch worth slowing down for.",
     ingredient: "granola",

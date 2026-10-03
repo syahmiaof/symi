@@ -1,15 +1,12 @@
 # SYMI — Crafted Frozen Yogurt
 
-A frontend-only, single-page brand experience. Navy and cream editorial art direction, real supplied product photography, and a scroll-controlled product story. Launching 2027.
+Frontend-only brand experience for SYMI, launching 2027. The five supplied PNG mockups are the visual specification.
 
-## Run
+## Run and verify
 
 ```sh
 npm ci
 npm run dev
-```
-
-```sh
 npm run lint
 npm run typecheck
 npm run build
@@ -18,54 +15,41 @@ npm start
 
 ## Experience
 
-- **The SYMI Swirl:** assembled product → lift → separate photographed layers → ingredient orbit and annotations → hold → reassembly. Desktop pin is 300 viewport heights; mobile is 100.
-- **Flavor Universe:** four full-width environments with vertical-to-horizontal desktop scrolling. Tablet/mobile use native horizontal snap, with keyboard-accessible previous/next controls.
-- **Story and experience:** quieter editorial photography, an architectural arch, ingredient typography, and a calm launch finale.
-- **Accessible motion:** reduced motion removes pinning, scrub and smooth scrolling. Navigation uses real anchors; the mobile menu uses a native modal dialog with Escape, focus containment and restoration.
+- Hero: navy Mediterranean architecture, large kiwi cup, bold editorial headline, cream CTA and four benefit icons. A compact cream story preview completes the supplied hero composition.
+- Swirl: a photographic exploded keyframe with yogurt, sauce ribbons, kiwi, granola and a tilted cup; real HTML annotations and marble benefit row. Desktop scroll transitions into the frame, holds it, then reassembles. Mobile is naturally scrolling.
+- Flavors: 28.3vw photographic environments, approximately three and a half visible, with controlled horizontal desktop scrolling. Mobile uses a cream product showcase and native swipe. Arrow buttons and keyboard controls work in both modes.
+- Story: deliberate 45/55 editorial opening, staff/product/copy mosaic and three photographic zones. Mobile has cream copy, a badge, staff image, brand statements and a coastal image.
+- Accessibility: reduced motion removes pinning and smooth scrolling; navigation uses anchors; the native mobile dialog supports Escape and restores focus.
 
-The page and scene content are Server Components. `MotionProvider`, `Header` and `FlavorControls` are the interaction boundaries. GSAP owns animation, with a single ticker driving desktop Lenis; touch scrolling remains native. No backend, API routes, authentication, checkout, external tracking or fake forms.
+Page content is rendered with Server Components. `MotionProvider`, `Header` and `FlavorControls` provide client interaction. Scoped GSAP handles cleanup, with one ticker driving desktop Lenis. No backend, authentication, payments or analytics collection.
 
-## Assets
+## Visual sources
 
-All 16 supplied files were inspected by actual image format, dimensions and appearance. See `data/assets.json` for the semantic map. Original photography remains untouched at the local project root and is excluded from Git and deployment. Mockups 9–13 are references only and never ship. Production contains 15 WebP assets, approximately 1.65 MiB combined before responsive delivery; `next/image` serves viewport-appropriate AVIF/WebP variants.
+Read `DESIGN.md` before UI changes. The authority is the supplied PNGs, followed by that file. Bodoni Moda supplies the heavier high-contrast editorial typography; static Manrope WOFF2 weights serve body/navigation text.
 
-`scripts/prepare_assets.py` reproduces the build-time masks from the originals with Pillow, NumPy and OpenCV. Those tools are not dependencies of the browser or deployment. Cup/fruit/granola images are extracted from the supplied photos. The sauce orbit is an intentionally illustrative SVG line, not a generated photographic liquid simulation.
+`data/visual-assets.md` records the generated photographic plates, transparent cutouts, source-photo crops and exact prompts. All production assets are local WebP files. The original reference PNGs are preserved locally and excluded from Git and deployment. No complete mockup screenshot is used as a webpage.
 
-Manrope is bundled as four static, Latin-subset WOFF2 fonts through `next/font/local` for consistent WebKit weight rendering. `scripts/prepare_fonts.py` reproduces them from the official Google Fonts source with fontTools and Brotli. The font's SIL Open Font License is included in `app/fonts/OFL.txt`.
-
-## Design source and skills
-
-Read `DESIGN.md` before UI edits. It defines the navy/cream palette, Instrument Serif / Manrope pairing, arch geometry, scene rhythm, breakpoints and motion/accessibility rules.
-
-Installed and applied:
-
-- `Enixes/astra-frontend-design` — creative direction, reference translation and rendered QA.
-- UI UX Pro Max — responsive, motion and accessibility review.
-- `danieloleary/design-md-for-codex` → `skills/design-system` — durable design tokens and validation.
-
-Skills were read directly during this session. The global design-system skill is available to subsequent Codex turns; project skills are under the local `.agents` directory and are not deployed.
-
-Research references: [GSAP matchMedia](https://gsap.com/docs/v3/GSAP/gsap.matchMedia%28%29/), [GSAP ScrollTrigger](https://gsap.com/docs/v3/Plugins/ScrollTrigger/), [Lenis integration](https://github.com/darkroomengineering/lenis), and [Codrops Scroll Panels](https://tympanus.net/Development/ScrollPanels/). Patterns informed choreography; supplied SYMI references remain the visual authority.
+`scripts/prepare_assets.py` reproduces the original product extractions. `scripts/prepare_fonts.py` reproduces static Manrope subsets. These build-time Python tools are not deployment dependencies.
 
 ## Browser QA
 
 ```sh
-npx playwright install chromium
+npx playwright install chromium webkit
 npm run qa
 ```
 
-Run against a production server or deployment using `QA_URL`; optional `QA_OUTPUT` sets the evidence directory. Defaults are `http://localhost:3000` and `.work/qa`.
+`QA_URL` overrides the target server; `QA_OUTPUT` overrides the evidence directory. Defaults: `http://localhost:3000` and `.work/visual-correction/final`.
 
-The suite captures hero, Swirl, flavor, story, experience and launch at 1440×900, 1280×800, 1024×768, 430×932, 390×844, 375×812 and 1920×1080. It checks overflow, page errors, missing images, mobile menu open/Escape, flavor controls, Axe accessibility at desktop/mobile and reduced-motion pin removal. Evidence and final checks are summarized in `qa/verification.md`.
+The suite captures hero, peak Swirl, Flavors and Story at 1440×1080, 1440×900, 1280×800, 1024×768, 430×932, 390×844 and 375×812. WebKit adds desktop/mobile checks. It verifies overflow, browser errors, missing images, menu focus restoration, flavor navigation, Axe accessibility and reduced-motion pin removal. Visual comparisons are reviewed separately from automated checks; evidence is summarized in `qa/verification.md`.
 
 ## Deployment
 
-GitHub source: https://github.com/syahmiaof/symi (private).
+Private source: [syahmiaof/symi](https://github.com/syahmiaof/symi).
 
-Vercel project: `symi-frozen-yogurt`. Next.js is auto-detected; the production URL is resolved into metadata via Vercel's system environment variable. The `.vercel` folder and credentials are excluded from Git.
+Production: [symi-frozen-yogurt.vercel.app](https://symi-frozen-yogurt.vercel.app).
 
-## Practical limits
+Vercel Git integration deploys `main`. Credentials and `.vercel` are excluded from Git. Temporary screenshots/comparison files remain in `.work` and are not deployed.
 
-The launch date and brand descriptions come from the supplied brief. No nutrition percentages, reviews, sales results or store addresses were invented. There is no analytics collection; possible future measurement events are hero-to-Swirl clicks, flavor completion and launch reach. Laboratory browser checks do not establish real-world mobile performance or physical-device Safari behavior.
+## Limits
 
-`npm audit --omit=dev` reports zero vulnerabilities. The current Next.js ESLint development dependency tree reports a braces stack-exhaustion advisory; npm audit offered a breaking lint-config downgrade rather than a compatible fix. It is not included in the browser bundle, and the downgrade was not applied.
+Missing photographic layers were reconstructed from references, so individual pixels and some scene details differ. The exploded product uses two clipped photographic layers plus an assembled cutout, rather than a 3D fluid simulation. Browser checks do not establish physical-device Safari performance.

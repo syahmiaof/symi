@@ -2,7 +2,6 @@
 import { useRef, type ReactNode } from "react";
 import Lenis from "lenis";
 import { gsap, ScrollTrigger, useGSAP } from "@/lib/motion/gsap";
-
 export default function MotionProvider({ children }: { children: ReactNode }) {
   const root = useRef<HTMLDivElement>(null);
   useGSAP(
@@ -14,7 +13,7 @@ export default function MotionProvider({ children }: { children: ReactNode }) {
       const mm = gsap.matchMedia();
       const q = gsap.utils.selector(el);
       const scrollTo = (top: number) => {
-        if (lenis) lenis.scrollTo(top, { duration: 1.15 });
+        if (lenis) lenis.scrollTo(top, { duration: 1 });
         else
           window.scrollTo({
             top,
@@ -47,13 +46,18 @@ export default function MotionProvider({ children }: { children: ReactNode }) {
         event.preventDefault();
         requestAnimationFrame(() => {
           const pin = ScrollTrigger.getById(`${id}-pin`);
-          const top = pin
-            ? pin.start
-            : target.getBoundingClientRect().top +
-              window.scrollY -
-              (id === "home" ? 0 : 78);
+          const offset = ["home", "swirl", "flavors", "story"].includes(id)
+            ? 0
+            : 90;
+          scrollTo(
+            Math.max(
+              0,
+              pin
+                ? pin.start
+                : target.getBoundingClientRect().top + window.scrollY - offset,
+            ),
+          );
           history.pushState(null, "", `#${id}`);
-          scrollTo(Math.max(0, top));
           target.setAttribute("tabindex", "-1");
           target.focus({ preventScroll: true });
         });
@@ -64,175 +68,117 @@ export default function MotionProvider({ children }: { children: ReactNode }) {
       mm.add(
         {
           desktop: "(min-width: 1024px)",
-          mobile: "(max-width: 767px)",
+          mobile: "(max-width: 1023px)",
           reduce: "(prefers-reduced-motion: reduce)",
         },
         (context) => {
-          const { desktop, mobile, reduce } = context.conditions!;
+          const { desktop, reduce } = context.conditions!;
+          const tick = (time: number) => lenis?.raf(time * 1000);
           if (desktop && !reduce) {
             lenis = new Lenis({
               autoRaf: false,
               smoothWheel: true,
               anchors: false,
-              lerp: 0.09,
-              syncTouch: false,
+              lerp: 0.1,
             });
             lenis.on("scroll", ScrollTrigger.update);
-          }
-          const tick = (time: number) => lenis?.raf(time * 1000);
-          if (lenis) {
             gsap.ticker.add(tick);
             gsap.ticker.lagSmoothing(0);
           }
           if (!reduce) {
-            const intro = gsap.timeline({ defaults: { ease: "power3.out" } });
-            intro
-              .from(
-                q(".hero h1 .line-mask > span"),
-                { yPercent: 105, duration: 0.85, stagger: 0.09 },
-                0,
-              )
-              .from(
-                q(".hero-cup"),
-                { y: 35, scale: 0.95, opacity: 0, duration: 0.95 },
-                0.05,
-              )
-              .from(
-                q(
-                  ".hero-eyebrow, .hero-subtitle, .hero-description, .hero .button",
-                ),
-                { opacity: 0, y: 10, duration: 0.65, stagger: 0.06 },
-                0.12,
-              );
-            gsap.to(q(".hero-product"), {
-              y: mobile ? 30 : 90,
-              rotation: mobile ? 0 : -3,
-              ease: "none",
-              scrollTrigger: {
-                trigger: q(".hero")[0],
-                start: "top top",
-                end: "bottom top",
-                scrub: true,
-              },
+            gsap.from(q(".hero h1 .line-mask>span"), {
+              y: 18,
+              opacity: 0,
+              duration: 0.65,
+              stagger: 0.07,
+              ease: "power2.out",
             });
-            const swirl = q(".swirl-scene")[0];
-            const tl = gsap.timeline({
-              defaults: { ease: "none" },
-              scrollTrigger: {
-                id: "swirl-pin",
-                trigger: swirl,
-                start: "top top",
-                end: () =>
-                  `+=${window.innerHeight * (desktop ? 3 : mobile ? 1 : 1.5)}`,
-                pin: true,
-                scrub: 0.65,
-                invalidateOnRefresh: true,
-              },
+            gsap.from(q(".hero-cup"), {
+              y: 16,
+              opacity: 0,
+              duration: 0.8,
+              ease: "power2.out",
             });
-            tl.addLabel("assembled", 0)
-              .to(
-                q(".swirl-top"),
-                { y: mobile ? -48 : -72, rotation: -3, duration: 1.5 },
-                0.4,
-              )
-              .to(
-                q(".swirl-vessel"),
-                { y: mobile ? 46 : 68, rotation: -8, duration: 1.5 },
-                0.4,
-              )
-              .to(
-                q(".swirl-orbit"),
-                { opacity: 0.35, scale: 1.12, rotation: 35, duration: 1.8 },
-                0.4,
-              )
-              .to(
-                q(".sauce-ribbon"),
-                { opacity: 0.85, rotation: -12, scale: 1.07, duration: 1.2 },
-                0.8,
-              );
-            q(".swirl-particle").forEach((particle: HTMLElement, i: number) => {
-              if (mobile && i > 5) return;
-              tl.fromTo(
-                particle,
-                { x: 0, y: 0, scale: 0.35, opacity: 0 },
-                {
-                  x: () =>
-                    Number(particle.dataset.x) *
-                    (mobile ? 0.42 : window.innerWidth < 1200 ? 0.75 : 1),
-                  y: () =>
-                    Number(particle.dataset.y) *
-                    (mobile ? 0.52 : window.innerWidth < 1200 ? 0.72 : 0.9),
-                  rotation: Number(particle.dataset.rotation),
-                  scale: mobile ? 0.65 : window.innerWidth < 1200 ? 0.8 : 1,
-                  opacity: 1,
-                  duration: 1.5,
-                },
-                0.55 + i * 0.025,
-              );
-            });
-            tl.to(
-              q(".callout"),
-              { opacity: 1, y: 0, stagger: 0.1, duration: 0.6 },
-              1.3,
-            )
-              .addLabel("hero-frame", 2.4)
-              .to(q(".swirl-orbit"), { rotation: 65, duration: 1.3 }, 2.4)
-              .to(q(".callout"), { opacity: 0, duration: 0.4 }, 3.8)
-              .to(
-                q(".swirl-particle"),
-                {
-                  x: 0,
-                  y: 0,
-                  rotation: 0,
-                  scale: 0.35,
-                  opacity: 0,
-                  duration: 1.3,
-                },
-                3.9,
-              )
-              .to(
-                q(".sauce-ribbon"),
-                { opacity: 0, scale: 0.7, duration: 0.7 },
-                3.9,
-              )
-              .to(
-                q(".swirl-top, .swirl-vessel"),
-                { y: 0, rotation: 0, duration: 1.3 },
-                3.9,
-              )
-              .to(
-                q(".swirl-orbit"),
-                { opacity: 0, scale: 1, duration: 0.6 },
-                4.3,
-              )
-              .addLabel("reassembled", 5.2)
-              .to({}, { duration: 0.4 });
-            gsap.fromTo(
-              q(".scene-progress i"),
-              { scaleX: 0 },
-              {
-                scaleX: 1,
-                ease: "none",
-                scrollTrigger: {
-                  trigger: swirl,
-                  start: () => tl.scrollTrigger!.start,
-                  end: () => tl.scrollTrigger!.end,
-                  scrub: true,
-                },
-              },
-            );
             if (desktop) {
+              const tl = gsap.timeline({
+                scrollTrigger: {
+                  id: "swirl-pin",
+                  trigger: q(".swirl-scene")[0],
+                  start: "top top",
+                  end: () => `+=${innerHeight * 2.2}`,
+                  pin: true,
+                  scrub: 0.55,
+                  invalidateOnRefresh: true,
+                },
+              });
+              tl.fromTo(
+                q(".swirl-assembled"),
+                { y: 18, opacity: 1 },
+                { y: 0, opacity: 1, duration: 0.35 },
+              )
+                .to(q(".swirl-assembled"), { opacity: 0, duration: 0.5 }, 0.35)
+                .fromTo(
+                  q(".swirl-top"),
+                  { yPercent: 13, scale: 0.88, opacity: 0 },
+                  {
+                    yPercent: 0,
+                    scale: 1,
+                    opacity: 1,
+                    duration: 0.75,
+                    ease: "power2.out",
+                  },
+                  0.4,
+                )
+                .fromTo(
+                  q(".swirl-vessel"),
+                  { yPercent: -7, scale: 0.9, opacity: 0 },
+                  {
+                    yPercent: 0,
+                    scale: 1,
+                    opacity: 1,
+                    duration: 0.75,
+                    ease: "power2.out",
+                  },
+                  0.4,
+                )
+                .fromTo(
+                  q(".callout"),
+                  { opacity: 0 },
+                  { opacity: 1, duration: 0.35, stagger: 0.06 },
+                  0.85,
+                )
+                .to({}, { duration: 1.8 })
+                .to(q(".callout"), { opacity: 0, duration: 0.3 })
+                .to(
+                  q(".swirl-top"),
+                  { yPercent: 10, scale: 0.9, opacity: 0, duration: 0.65 },
+                  ">-.1",
+                )
+                .to(
+                  q(".swirl-vessel"),
+                  { yPercent: -6, scale: 0.94, opacity: 0, duration: 0.65 },
+                  "<",
+                )
+                .to(
+                  q(".swirl-assembled"),
+                  { opacity: 1, duration: 0.5 },
+                  "<.15",
+                );
               const track = q(".flavor-track")[0] as HTMLElement;
               gsap.to(track, {
-                x: () => -(track.scrollWidth - window.innerWidth),
+                x: () =>
+                  -Math.max(
+                    0,
+                    track.scrollWidth - innerWidth - innerWidth * 0.03,
+                  ),
                 ease: "none",
                 scrollTrigger: {
                   id: "flavors-pin",
                   trigger: q(".flavor-scene")[0],
                   start: "top top",
-                  end: () => `+=${window.innerHeight * 3.3}`,
+                  end: () => `+=${innerHeight * 1.25}`,
                   pin: true,
-                  scrub: 0.7,
+                  scrub: 0.55,
                   invalidateOnRefresh: true,
                   onUpdate: (self) => {
                     const current = el.querySelector(".flavor-current");
@@ -240,133 +186,88 @@ export default function MotionProvider({ children }: { children: ReactNode }) {
                       current.textContent = String(
                         Math.round(self.progress * 3) + 1,
                       ).padStart(2, "0");
-                    gsap.set(q(".flavor-progress i"), {
-                      scaleX: 0.25 + self.progress * 0.75,
-                    });
                   },
                 },
               });
             }
-            gsap.fromTo(
-              q(".flow-line-one"),
-              { xPercent: -10 },
-              {
-                xPercent: 3,
-                ease: "none",
-                scrollTrigger: {
-                  trigger: q(".ingredient-flow")[0],
-                  start: "top bottom",
-                  end: "bottom top",
-                  scrub: true,
-                },
-              },
-            );
-            gsap.fromTo(
-              q(".flow-line-two"),
-              { xPercent: 4 },
-              {
-                xPercent: -12,
-                ease: "none",
-                scrollTrigger: {
-                  trigger: q(".ingredient-flow")[0],
-                  start: "top bottom",
-                  end: "bottom top",
-                  scrub: true,
-                },
-              },
-            );
-            gsap.fromTo(
-              q(".story-photo img"),
-              { scale: 1.12 },
-              {
-                scale: 1,
-                ease: "none",
-                scrollTrigger: {
-                  trigger: q(".story-section")[0],
-                  start: "top bottom",
-                  end: "bottom top",
-                  scrub: true,
-                },
-              },
-            );
-            q(".experience-gallery figure").forEach(
-              (figure: HTMLElement, i: number) => {
-                gsap.from(figure, {
-                  y: mobile ? 25 : i % 2 ? 100 : 55,
-                  rotation: mobile ? 0 : i % 2 ? 2 : -2,
-                  ease: "none",
-                  scrollTrigger: {
-                    trigger: figure,
-                    start: "top 95%",
-                    end: "top 35%",
-                    scrub: 1,
-                  },
-                });
-              },
-            );
-            gsap.from(q(".final-leaf"), {
-              rotation: -35,
-              scale: 0.6,
-              opacity: 0,
-              duration: 0.8,
-              ease: "power3.out",
-              scrollTrigger: {
-                trigger: q(".final-brand")[0],
-                start: "top 65%",
-                once: true,
-              },
-            });
           }
           const track = el.querySelector<HTMLElement>(".flavor-track");
           const nativeProgress = () => {
-            if (desktop && !reduce) return;
-            if (!track) return;
+            if ((desktop && !reduce) || !track) return;
             const panel = track.querySelector<HTMLElement>(".flavor-panel");
             if (!panel) return;
-            const index = Math.min(
-              3,
-              Math.round(track.scrollLeft / (panel.offsetWidth + 16)),
-            );
+            const gap = parseFloat(getComputedStyle(track).columnGap) || 0;
             const current = el.querySelector(".flavor-current");
             if (current)
-              current.textContent = String(index + 1).padStart(2, "0");
-            const bar = el.querySelector<HTMLElement>(".flavor-progress i");
-            if (bar) bar.style.transform = `scaleX(${(index + 1) / 4})`;
+              current.textContent = String(
+                Math.min(
+                  3,
+                  Math.round(track.scrollLeft / (panel.offsetWidth + gap)),
+                ) + 1,
+              ).padStart(2, "0");
+          };
+          const keyboard = (event: KeyboardEvent) => {
+            if (event.key !== "ArrowRight" && event.key !== "ArrowLeft") return;
+            event.preventDefault();
+            const buttons = el.querySelectorAll<HTMLButtonElement>(
+              ".flavor-controls button",
+            );
+            buttons[event.key === "ArrowRight" ? 1 : 0]?.click();
           };
           track?.addEventListener("scroll", nativeProgress, { passive: true });
+          track?.addEventListener("keydown", keyboard);
           return () => {
             track?.removeEventListener("scroll", nativeProgress);
+            track?.removeEventListener("keydown", keyboard);
             gsap.ticker.remove(tick);
             lenis?.destroy();
             lenis = undefined;
           };
         },
       );
-      const refresh = () => {
+      const header = el.querySelector(".site-header");
+      const onScroll = () => {
+        header?.classList.toggle("is-scrolled", scrollY > 40);
+        const y = scrollY + 95;
+        const inSection = (id: string) => {
+          const section = document.getElementById(id);
+          if (!section) return false;
+          const box = section.getBoundingClientRect();
+          return box.top + scrollY <= y && box.bottom + scrollY > y;
+        };
+        header?.classList.toggle(
+          "is-light",
+          innerWidth < 768 &&
+            (inSection("flavors") || inSection("story") || inSection("launch")),
+        );
+        header?.classList.toggle(
+          "on-cream",
+          inSection("story") || inSection("launch"),
+        );
+      };
+      onScroll();
+      window.addEventListener("scroll", onScroll, { passive: true });
+      window.addEventListener("resize", onScroll);
+      Promise.all([
+        document.fonts.ready,
+        ...Array.from(
+          el.querySelectorAll<HTMLImageElement>('img[loading="eager"]'),
+        ).map((image) => image.decode().catch(() => undefined)),
+      ]).then(() => {
         if (alive) {
           ScrollTrigger.sort();
           ScrollTrigger.refresh();
+          onScroll();
         }
-      };
-      const images = Array.from(
-        el.querySelectorAll<HTMLImageElement>("img"),
-      ).filter((image) => image.loading !== "lazy");
-      Promise.all([
-        document.fonts.ready,
-        ...images.map((image) => image.decode().catch(() => undefined)),
-      ]).then(refresh);
-      const header = document.querySelector(".site-header");
-      const onScroll = () =>
-        header?.classList.toggle("is-scrolled", window.scrollY > 40);
-      onScroll();
-      window.addEventListener("scroll", onScroll, { passive: true });
+      });
       return () => {
         alive = false;
         mm.revert();
         window.removeEventListener("scroll", onScroll);
-        document.removeEventListener("click", anchors);
+        window.removeEventListener("resize", onScroll);
         window.removeEventListener("symi:scroll", requestedScroll);
         window.removeEventListener("symi:pause", pause);
+        document.removeEventListener("click", anchors);
       };
     },
     { scope: root },

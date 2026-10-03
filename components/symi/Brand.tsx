@@ -43,14 +43,32 @@ export function Arrow({
     </svg>
   );
 }
-export function BrandStamp() {
+export function BrandStamp({ story = false }: { story?: boolean }) {
   return (
     <div className="brand-stamp" aria-hidden="true">
       <LeafMark />
       <span>
-        Real fruit
-        <br />
-        Real joy
+        {story ? (
+          <>
+            Good
+            <br />
+            Yogurt
+            <br />
+            Brighter
+            <br />
+            Days.
+          </>
+        ) : (
+          <>
+            Real
+            <br />
+            Fruit
+            <br />
+            Real
+            <br />
+            Joy.
+          </>
+        )}
       </span>
     </div>
   );

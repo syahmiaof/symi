@@ -1,35 +1,34 @@
 ---
 version: alpha
 name: SYMI Crafted Frozen Yogurt
-description: Mediterranean frozen luxury with playful product motion and editorial photography.
+description: Faithful implementation of the five supplied SYMI visual specifications.
 colors:
   primary: "#06263B"
   navy: "#06263B"
-  ink: "#071C2B"
-  cream: "#F5F0E6"
-  white: "#FFFDF8"
-  stone: "#E8E0D4"
-  kiwi: "#A8C94A"
-  mango: "#F4B63C"
-  berry: "#D95D70"
-  chocolate: "#58331F"
+  ink: "#0D1D30"
+  cream: "#F8F4EC"
+  white: "#FFFAF4"
+  kiwi: "#B8C477"
+  mango: "#EAB754"
+  berry: "#BE737B"
+  chocolate: "#623D22"
 typography:
   display:
-    fontFamily: Instrument Serif, serif
-    fontSize: 128px
-    fontWeight: 400
-    lineHeight: 0.94
-    letterSpacing: -0.035em
+    fontFamily: Bodoni Moda, serif
+    fontSize: 102px
+    fontWeight: 900
+    lineHeight: 0.86
+    letterSpacing: -0.055em
   body:
     fontFamily: Manrope, sans-serif
     fontSize: 16px
     fontWeight: 400
-    lineHeight: 1.7
+    lineHeight: 1.55
   label:
     fontFamily: Manrope, sans-serif
-    fontSize: 11px
+    fontSize: 10px
     fontWeight: 500
-    lineHeight: 1.85
+    lineHeight: 1.8
     letterSpacing: 0.2em
 spacing:
   sm: 16px
@@ -38,61 +37,48 @@ spacing:
   xl: 128px
 rounded:
   none: 0px
-  arch: 160px
+  arch: 110px
   full: 9999px
 ---
 
-# SYMI — Crafted Frozen Yogurt
-
-## Design thesis
-
-Mediterranean frozen luxury × playful kinetic motion. One product story controlled by scroll: swirl, orbit, scatter, flow, assemble. Premium, bright, natural, editorial and joyful. The cup is the protagonist.
+# SYMI reference implementation
 
 ## Authority
 
-Supplied mockups 9–13, this document, Astra Frontend Design, then UI UX Pro Max review guidance. References are never rendered as website content. Real production photography comes from assets 1–8 and 14–16. All originals stay untouched at project root, outside the shipped bundle.
+The five named PNGs supplied by the user are the primary visual specification. This document records their geometry; it does not authorize a new art direction. Follow the PNGs, then this document, then Astra Frontend Design.
 
-## Colors
+- `symi_crafted_frozen_yogurt_landing_page.png`: hero and lower cream preview.
+- `symi_swirl_mediterranean_kiwi_delight.png`: peak explosion composition.
+- `symi_flavor_universe_carousel.png`: horizontal flavor environments.
+- `symi_a_brighter_way_to_yogurt.png`: editorial story mosaic.
+- `symi_frozen_yogurt_mobile_showcase.png`: the content inside each phone.
 
-- Midnight navy: #06263B — primary canvas, navigation, cup continuity.
-- Deep ink: #071C2B — light-surface text.
-- Warm cream: #F5F0E6 — editorial scenes.
-- Soft white: #FFFDF8 — primary text on navy.
-- Muted stone: #E8E0D4 — rules and quiet surfaces.
-- Kiwi: #A8C94A; mango: #F4B63C; berry: #D95D70; chocolate: #58331F.
-- Muted on navy: #BEC9CC; muted on cream: #52626A.
-  Flavor scenes use controlled solid backgrounds. No decorative gradients, glass cards, generic bento grids or invented social proof.
+## Desktop geometry
+
+The reference artboards are 1448 by 1086. Hero height is 55.66vw (806px at reference width), with copy at 9.45% left / 17.5% top. The broad product occupies approximately x720–1100 and y132–685 at reference dimensions. Header is 76–92px, with small spaced links and a launch control. Four thin benefit icons sit below the CTA. Cream story preview begins at the hero boundary.
+
+Swirl is a full viewport scene with title left, photographic exploded product in the middle, four annotations, right progress rail and bottom marble benefit row. The static frame is authoritative. Animation holds the exact composition for the middle portion of its timeline, and transitions to and from a separate assembled cup.
+
+Flavor environments are 28.3vw each with a 1vw gap and a clipped first edge, showing roughly three and a half panels. The heading occupies the top 30%, environments 60%, marble navigation floor the final 10%. Products dominate each panel's lower area. Vertical scroll translates the entire rail on desktop. Arrow and keyboard alternatives remain available.
+
+Story uses a 45/55 top split, then 38/30.5/31.5 staff, product and copy columns. Bottom photos use 32.2/36.3/31.5 columns. Photographic zones have 4px gutters. No detached cards, masonry layout, oversized section gaps or ingredient marquee.
 
 ## Typography
 
-Instrument Serif regular/italic for display; Manrope for UI and body. Two families only, locally served by next/font. Manrope uses actual static WOFF2 weights 400/500/600/800 through next/font/local for reliable WebKit rendering. H1 clamp(5rem,9vw,10.5rem); H2 clamp(3.5rem,7vw,8rem). Mobile H1 deliberately wraps into three lines. Main body 14–18px; mobile hero uses a shorter 15px description to leave space for the product. Eyebrows 9–12px with .2em tracking. Display lines tight but never overlapping; text-wrap balance.
+Bodoni Moda supplies the high-contrast, heavier editorial letterforms visible in the PNGs. Use 900 for large desktop statements and 700 for mobile. Manrope static WOFF2 weights 400/500/600/800 remain the UI/body face. Only these two families. Hero line breaks are two lines on desktop and three on mobile. Body text must remain readable at tablet sizes.
 
-## Layout and geometry
+## Mobile composition
 
-Generous 1600px container; 12-column editorial desktop compositions, 4-column mobile mental model. Gutters clamp(24px,5vw,96px). Spacing 8/16/24/32/48/64/96/128px. Arch geometry echoes store architecture. Straight edges for editorial photography, one arch per major composition. Rounded CTA only, no card grid. Hairline rules and small editorial numbers. Product cutouts sit on subtle elliptical grounding shadows.
+Use a dedicated portrait navy/arch photographic plate. Headline at the upper left, two-line subtitle, compact body and cream CTA, four vertical benefits, a large bottom-right cup. No phone hardware. Flavor becomes a cream screen with three-line heading, a large centered product, native horizontal swipe, arrow controls, caption and bottom CTA. Story uses cream copy, a circular badge, one rounded staff image, three brand statements and a scenic image below. Header switches to navy ink on cream sections.
 
-## Scenes
+## Assets and layering
 
-1. Navy fullscreen hero: editorial left, large extracted kiwi cup right, arch-framed store view behind, cream CTA. Real HTML copy.
-2. Navy Swirl: desktop pin + actual separate photo layers. Lift, explode, ingredient orbit, readable hold, reassemble. Matched kiwi scale/composition gives continuity.
-3. Flavor Universe: 4 nearly full-screen horizontal desktop environments, large typography and extracted product. Mobile 90vw native snap with arrow alternatives.
-4. Ingredient Flow: short cream kinetic typography with opposing ingredient layers.
-5. Story: quieter cream split composition; arch-shaped lifestyle photo.
-6. Experience: offset editorial photography assembles gently on scroll.
-7. Final: large calm brand promise, leaf mark, launch date. Minimal truthful footer.
+All typography, buttons, navigation, benefit icons, annotations and layout are HTML/SVG/CSS. No whole reference screenshot is displayed as a page. Photographic background plates and transparent cutouts were separated from references with the built-in image tool. The top story store zone is a photo-only crop. Original staff/product photography is retained. Asset provenance and generation prompts are recorded in `data/visual-assets.md`.
 
-## Motion
+## Motion and accessibility
 
-GSAP is the sole motion engine. Lenis desktop only, autoRaf false, driven by GSAP ticker. Native touch on mobile. useGSAP + matchMedia cleanup. Primarily transform/opacity. Intro under 1 second. No permanent autonomous movement; scroll drives product motion. Desktop Swirl pin 300vh, mobile 100vh with 6 ingredients. Desktop flavors 330vh. Mobile flavors native horizontal snap. Reduced motion disables pinning, scrub and smooth scroll; assembled cup and complete readable content remain. No nested pins. Font and image completion refresh ScrollTrigger once safely.
+GSAP/useGSAP owns scoped cleanup; Lenis is desktop only. Pin Swirl and Flavor scenes only above 1024px, with no pins under reduced motion. Mobile uses natural document scroll. Hold the keyframe before reassembly. Keep native dialog focus restoration, anchor access, keyboard flavor controls, visible focus, semantic headings and image descriptions. Never conceal text permanently behind an intro animation.
 
-## Interaction and accessibility
+## Verification
 
-Anchors: home/swirl/flavors/story/experience/launch. Header and menu fully keyboard accessible. Mobile dialog traps focus, Escape closes, focus restores. Minimum 44px targets. Visible high-contrast focus, skip link, semantic headings, descriptive alt text, decorative layers hidden. No unavailable functionality, fake forms or ordering controls. Launching 2027 is informational.
-
-## Content and conversion
-
-English user-supplied copy, sparse and product specific. Primary conversion is exploration: hero-to-Swirl, flavor completion, launch reach. These are proposed measurement events, not implemented tracking or invented metrics. No analytics or consent-dependent services in this frontend. No fabricated store locations, addresses, testimonials or opening hours.
-
-## QA
-
-Inspect 1440×900, 1280×800, 1024×768, 430×932, 390×844, 375×812, 1920×1080; test reduced motion, keyboard menu, anchor navigation, pin release, resize, native swipe, image loading and production build. Record limitations truthfully.
+Capture 1440x1080, 1440x900, 1280x800, 1024x768, 430x932, 390x844 and 375x812. Compare hero, peak swirl, flavor entry and story against the PNGs. Check WebKit, reduced motion, menu focus, flavor controls, overflow, image loading and browser errors. Temporary comparison imagery stays under `.work/` and is not deployed.

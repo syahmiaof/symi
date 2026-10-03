@@ -18,7 +18,9 @@ export default function FlavorControls() {
     } else {
       const panel = track.querySelector<HTMLElement>(".flavor-panel");
       if (!panel) return;
-      const width = panel.offsetWidth + 16;
+      const width =
+        panel.offsetWidth +
+        (parseFloat(getComputedStyle(track).columnGap) || 0);
       const next = Math.min(
         3,
         Math.max(0, Math.round(track.scrollLeft / width) + direction),

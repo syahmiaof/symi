@@ -4,9 +4,9 @@ import { Arrow, Wordmark } from "./Brand";
 
 const links = [
   ["Home", "home"],
-  ["The Swirl", "swirl"],
-  ["Flavors", "flavors"],
   ["Our Story", "story"],
+  ["Flavors", "flavors"],
+  ["Ingredients", "swirl"],
   ["Experience", "experience"],
 ] as const;
 export default function Header() {
@@ -46,6 +46,21 @@ export default function Header() {
         </nav>
         <a className="launch-link" href="#launch">
           Launching 2027 <Arrow />
+        </a>
+        <a
+          className="mobile-search"
+          href="#flavors"
+          aria-label="Explore flavors"
+        >
+          <svg
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="1.6"
+          >
+            <circle cx="10" cy="10" r="6.5" />
+            <path d="m15 15 6 6" />
+          </svg>
         </a>
         <button
           ref={toggle}

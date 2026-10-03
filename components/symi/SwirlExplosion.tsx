@@ -1,33 +1,79 @@
 import Image from "next/image";
 import { Arrow } from "./Brand";
-
-const particles = [
-  ["kiwi-slice", -205, -155, -35, 100],
-  ["kiwi-slice", 218, 18, 36, 112],
-  ["granola", -176, -260, -24, 55],
-  ["granola", 185, -214, 36, 64],
-  ["granola", -190, 95, -18, 62],
-  ["granola", 146, 172, 64, 44],
-  ["granola", 85, -315, 12, 32],
-  ["granola", -114, -64, -45, 34],
-  ["kiwi-slice", 144, -296, -56, 70],
-  ["granola", -90, 233, 90, 39],
-  ["granola", 252, 112, 120, 33],
-  ["granola", -238, -8, 16, 28],
-] as const;
-
+import Benefits, { BenefitIcon } from "./Benefits";
+const callouts = [
+  {
+    id: "yogurt",
+    icon: 0,
+    title: "Creamy frozen yogurt",
+    description: (
+      <>
+        Smooth. Light.
+        <br />
+        Pure joy.
+      </>
+    ),
+  },
+  {
+    id: "kiwi",
+    icon: 0,
+    title: "Kiwi",
+    description: (
+      <>
+        Bright flavor.
+        <br />
+        Real fruit.
+      </>
+    ),
+  },
+  {
+    id: "granola",
+    icon: 1,
+    title: "House-made granola",
+    description: (
+      <>
+        Wholesome crunch.
+        <br />
+        All natural.
+      </>
+    ),
+  },
+  {
+    id: "sauce",
+    icon: 3,
+    title: "Kiwi sauce",
+    description: (
+      <>
+        Fruity. Refreshing.
+        <br />
+        Naturally vibrant.
+      </>
+    ),
+  },
+];
 export default function SwirlExplosion() {
   return (
     <section id="swirl" className="swirl-section" aria-labelledby="swirl-title">
       <div className="swirl-scene">
+        <Image
+          className="scene-backdrop"
+          src="/images/symi/swirl-plate.webp"
+          alt=""
+          fill
+          sizes="100vw"
+        />
         <div className="swirl-copy">
-          <p className="eyebrow">A little wonder in every layer</p>
+          <p className="eyebrow">
+            Good yogurt
+            <br />
+            Brighter days
+          </p>
           <h2 id="swirl-title">
             The
             <br />
-            <span>SYMI</span>
+            SYMI
             <br />
-            <em>Swirl</em>
+            Swirl
           </h2>
           <p className="serif-subtitle">
             Real ingredients,
@@ -38,108 +84,69 @@ export default function SwirlExplosion() {
             A perfect balance of creamy frozen yogurt, vibrant fruit and
             wholesome toppings — crafted to brighten your day, layer by layer.
           </p>
-          <a className="text-link" href="#flavors">
-            Meet your flavor <Arrow />
+          <a className="button" href="#flavors">
+            Explore Our Flavors
+            <span>
+              <Arrow />
+            </span>
           </a>
         </div>
+        <Image
+          className="swirl-assembled"
+          src="/images/symi/hero-kiwi.webp"
+          alt=""
+          width={1000}
+          height={1229}
+          sizes="30vw"
+        />
         <div
           className="swirl-stage"
           role="img"
-          aria-label="Layers of the SYMI swirl: creamy frozen yogurt, kiwi, house-made granola and kiwi sauce"
+          aria-label="Exploded SYMI kiwi yogurt: white yogurt swirl, kiwi sauce ribbons, fresh kiwi, golden granola and tilted navy cup"
         >
-          <div className="swirl-orbit" aria-hidden="true" />
-          <svg
-            className="sauce-ribbon"
-            viewBox="0 0 600 750"
-            fill="none"
-            aria-hidden="true"
-          >
-            <path
-              d="M158 215C490 90 557 279 292 300C71 321 105 459 432 422"
-              stroke="currentColor"
-              strokeWidth="13"
-              strokeLinecap="round"
-            />
-            <path
-              d="M158 215C490 90 557 279 292 300C71 321 105 459 432 422"
-              stroke="#e5eaa4"
-              strokeWidth="3"
-              strokeLinecap="round"
-            />
-          </svg>
           <Image
             className="swirl-layer swirl-top"
-            src="/images/symi/kiwi-swirl.webp"
+            src="/images/symi/exploded-kiwi.webp"
             alt=""
-            width={580}
-            height={870}
-            sizes="(max-width: 767px) 72vw, 36vw"
-            aria-hidden="true"
+            fill
+            sizes="55vw"
+            quality={90}
           />
           <Image
             className="swirl-layer swirl-vessel"
-            src="/images/symi/kiwi-vessel.webp"
+            src="/images/symi/exploded-kiwi.webp"
             alt=""
-            width={580}
-            height={870}
-            sizes="(max-width: 767px) 72vw, 36vw"
-            aria-hidden="true"
+            fill
+            sizes="55vw"
+            quality={90}
           />
-          {particles.map(([asset, x, y, rotation, size], i) => (
-            <div
-              key={i}
-              className={`swirl-particle particle-${i}`}
-              data-x={x}
-              data-y={y}
-              data-rotation={rotation}
-              style={{ width: size }}
-              aria-hidden="true"
-            >
-              <Image
-                src={`/images/symi/${asset}.webp`}
-                alt=""
-                width={asset === "kiwi-slice" ? 283 : 135}
-                height={asset === "kiwi-slice" ? 219 : 95}
-                sizes={`${size}px`}
-              />
+        </div>
+        <div className="swirl-callouts">
+          {callouts.map((c) => (
+            <div className={`callout callout-${c.id}`} key={c.id}>
+              <BenefitIcon type={c.icon} />
+              <span className="callout-line" />
+              <strong>{c.title}</strong>
+              <p>{c.description}</p>
             </div>
           ))}
         </div>
-        <div className="swirl-callouts" aria-hidden="true">
-          <div className="callout callout-yogurt">
-            <span className="callout-number">01</span>
-            <strong>Creamy frozen yogurt</strong>
-            <span>Smooth. Light. Pure joy.</span>
-          </div>
-          <div className="callout callout-kiwi">
-            <span className="callout-number">02</span>
-            <strong>Kiwi</strong>
-            <span>Bright flavor. Real fruit.</span>
-          </div>
-          <div className="callout callout-granola">
-            <span className="callout-number">03</span>
-            <strong>House-made granola</strong>
-            <span>Wholesome crunch.</span>
-          </div>
-          <div className="callout callout-sauce">
-            <span className="callout-number">04</span>
-            <strong>Kiwi sauce</strong>
-            <span>Fruity. Naturally vibrant.</span>
-          </div>
-        </div>
-        <div className="swirl-caption">
-          <span>Creamy yogurt</span>
-          <i />
-          Real kiwi
-          <i />
-          <span>Golden granola</span>
-        </div>
-        <div className="scene-progress" aria-hidden="true">
-          <span>Assemble</span>
-          <div>
-            <i />
-          </div>
-          <span>Explore the layers</span>
+        <nav className="scene-progress" aria-label="Explore the page">
+          <a href="#home">01</a>
+          <a className="current" href="#swirl" aria-current="location">
+            02
+          </a>
+          <a href="#flavors">03</a>
+          <a href="#story">04</a>
+          <span className="scroll-cue">
+            <span className="mouse" />
+            Scroll
+            <br />
+            to explore
+          </span>
+        </nav>
+        <div className="swirl-benefits">
+          <Benefits />
         </div>
       </div>
     </section>
