@@ -16,7 +16,7 @@ All seven viewports: no page overflow, missing images, hydration errors or conso
 
 Final changed mobile layouts were additionally checked at 430×932 and 375×812, with touch-device emulation. WebKit checked at 390×844 and 1440×900: HTTP 200, no console errors/overflow, Swirl pin release, next-flavor navigation and launch navigation passed. See `cross-browser-checks.json`.
 
-WebKit visual review also caught inconsistent variable-font weight rendering. Manrope now loads explicit 400/500/600/800 weights, and the corrected mobile frame was re-inspected. The final build and lint pass after this change.
+WebKit visual review also caught inconsistent variable-font weight rendering. Declaring separate CSS weights still reused the same variable font file in Vercel's build. Manrope is now instanced at build-time into four actual static WOFF2 assets (400/500/600/800), served with `next/font/local`. The four Latin font files total approximately 51 KiB and include the original SIL Open Font License.
 
 ## Interaction and accessibility
 
@@ -37,7 +37,7 @@ See `interaction-checks.json`. Local screenshot evidence is in `.work/qa-product
 
 Originals preserved. No reference mockups, full-resolution originals, unused photographs, background-removal runtime, WebGL stack or extra animation engines are deployed. Fifteen optimized WebP assets total approximately 1.65 MiB, with responsive Next Image delivery. Fonts are served locally by Next Font.
 
-A single unthrottled local production run at 430×932 measured CLS **0** and initial resource transfer **467,808 bytes** (~457 KiB). Local timing is not representative of real mobile networks; no field Core Web Vitals or fabricated performance score is claimed.
+A single unthrottled local production run at 430×932, before the final font portability fix, measured CLS **0** and initial resource transfer **467,808 bytes** (~457 KiB). The final static font files add approximately 51 KiB in place of the variable Manrope asset. Local timing is not representative of real mobile networks; no field Core Web Vitals or fabricated performance score is claimed.
 
 ## Remaining limits
 

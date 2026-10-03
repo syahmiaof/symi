@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from "next";
-import { Instrument_Serif, Manrope } from "next/font/google";
+import { Instrument_Serif } from "next/font/google";
+import localFont from "next/font/local";
 import "./globals.css";
 const display = Instrument_Serif({
   weight: "400",
@@ -8,9 +9,13 @@ const display = Instrument_Serif({
   variable: "--font-display",
   display: "swap",
 });
-const sans = Manrope({
-  weight: ["400", "500", "600", "800"],
-  subsets: ["latin"],
+const sans = localFont({
+  src: [
+    { path: "./fonts/manrope-400.woff2", weight: "400", style: "normal" },
+    { path: "./fonts/manrope-500.woff2", weight: "500", style: "normal" },
+    { path: "./fonts/manrope-600.woff2", weight: "600", style: "normal" },
+    { path: "./fonts/manrope-800.woff2", weight: "800", style: "normal" },
+  ],
   variable: "--font-sans",
   display: "swap",
 });

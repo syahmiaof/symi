@@ -31,6 +31,8 @@ All 16 supplied files were inspected by actual image format, dimensions and appe
 
 `scripts/prepare_assets.py` reproduces the build-time masks from the originals with Pillow, NumPy and OpenCV. Those tools are not dependencies of the browser or deployment. Cup/fruit/granola images are extracted from the supplied photos. The sauce orbit is an intentionally illustrative SVG line, not a generated photographic liquid simulation.
 
+Manrope is bundled as four static, Latin-subset WOFF2 fonts through `next/font/local` for consistent WebKit weight rendering. `scripts/prepare_fonts.py` reproduces them from the official Google Fonts source with fontTools and Brotli. The font's SIL Open Font License is included in `app/fonts/OFL.txt`.
+
 ## Design source and skills
 
 Read `DESIGN.md` before UI edits. It defines the navy/cream palette, Instrument Serif / Manrope pairing, arch geometry, scene rhythm, breakpoints and motion/accessibility rules.

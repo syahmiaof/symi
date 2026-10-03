@@ -65,7 +65,7 @@ Supplied mockups 9–13, this document, Astra Frontend Design, then UI UX Pro Ma
 
 ## Typography
 
-Instrument Serif regular/italic for display; Manrope for UI and body. Two families only, locally served by next/font. H1 clamp(5rem,9vw,10.5rem); H2 clamp(3.5rem,7vw,8rem). Mobile H1 deliberately wraps into three lines. Main body 14–18px; mobile hero uses a shorter 15px description to leave space for the product. Eyebrows 9–12px with .2em tracking. Display lines tight but never overlapping; text-wrap balance.
+Instrument Serif regular/italic for display; Manrope for UI and body. Two families only, locally served by next/font. Manrope uses actual static WOFF2 weights 400/500/600/800 through next/font/local for reliable WebKit rendering. H1 clamp(5rem,9vw,10.5rem); H2 clamp(3.5rem,7vw,8rem). Mobile H1 deliberately wraps into three lines. Main body 14–18px; mobile hero uses a shorter 15px description to leave space for the product. Eyebrows 9–12px with .2em tracking. Display lines tight but never overlapping; text-wrap balance.
 
 ## Layout and geometry
 
