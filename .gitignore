@@ -1,0 +1,16 @@
+node_modules/
+.next/
+out/
+.vercel/
+.work/
+.agents/
+.codex/
+.env*
+!.env.example
+*.tsbuildinfo
+/[0-9]*.png
+/[0-9]*.jpg
+test-results/
+playwright-report/
+
+.vercel

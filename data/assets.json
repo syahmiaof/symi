@@ -1,0 +1,76 @@
+[
+  {
+    "original": "1.png",
+    "production": "staff-serve.webp",
+    "size": [1536, 1024],
+    "role": "production photograph"
+  },
+  {
+    "original": "6.png",
+    "production": "staff-machine.webp",
+    "size": [1536, 1024],
+    "role": "production photograph"
+  },
+  {
+    "original": "7.png",
+    "production": "flavors-flatlay.webp",
+    "size": [1254, 1254],
+    "role": "production photograph"
+  },
+  {
+    "original": "8.png",
+    "production": "handheld.webp",
+    "size": [1122, 1402],
+    "role": "production photograph"
+  },
+  {
+    "original": "15.jpg",
+    "production": "store-lifestyle.webp",
+    "size": [1536, 1024],
+    "role": "production photograph"
+  },
+  {
+    "original": "9.png",
+    "role": "reference only; never deployed"
+  },
+  {
+    "original": "10.png",
+    "role": "reference only; never deployed"
+  },
+  {
+    "original": "11.png",
+    "role": "reference only; never deployed"
+  },
+  {
+    "original": "12.png",
+    "role": "reference only; never deployed"
+  },
+  {
+    "original": "13.png",
+    "role": "reference only; never deployed"
+  },
+  {
+    "original": "2.png",
+    "role": "extracted kiwi cup and ingredient layers only"
+  },
+  {
+    "original": "3.png",
+    "role": "extracted mango cup and ingredient layers only"
+  },
+  {
+    "original": "4.png",
+    "role": "extracted berry cup and ingredient layers only"
+  },
+  {
+    "original": "5.png",
+    "role": "extracted choco cup and ingredient layers only"
+  },
+  {
+    "original": "16.jpg",
+    "role": "service photograph inspected; alternate to asset 6, not duplicated in production"
+  },
+  {
+    "original": "14.jpg",
+    "role": "launch artwork inspected; not shipped because its opening copy differs from Launching 2027"
+  }
+]

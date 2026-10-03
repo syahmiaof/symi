@@ -1,0 +1,68 @@
+{
+  "perf": {
+    "cls": 0,
+    "lcpMs": 140,
+    "transferBytes": 467808,
+    "images": [
+      {
+        "width": 229,
+        "naturalWidth": 258,
+        "url": "http://localhost:3001/_next/image?url=%2Fimages%2Fsymi%2Fstore-lifestyle.webp&w=384&q=80"
+      },
+      {
+        "width": 292,
+        "naturalWidth": 279,
+        "url": "http://localhost:3001/_next/image?url=%2Fimages%2Fsymi%2Fkiwi-cup.webp&w=384&q=90"
+      },
+      {
+        "width": 110,
+        "naturalWidth": 100,
+        "url": "http://localhost:3001/_next/image?url=%2Fimages%2Fsymi%2Fkiwi-slice.webp&w=128&q=80"
+      },
+      {
+        "width": 135,
+        "naturalWidth": 70,
+        "url": "http://localhost:3001/_next/image?url=%2Fimages%2Fsymi%2Fgranola.webp&w=96&q=80"
+      },
+      {
+        "width": 135,
+        "naturalWidth": 34,
+        "url": "http://localhost:3001/_next/image?url=%2Fimages%2Fsymi%2Fgranola.webp&w=48&q=80"
+      },
+      {
+        "width": 283,
+        "naturalWidth": 0,
+        "url": ""
+      },
+      {
+        "width": 135,
+        "naturalWidth": 38,
+        "url": "http://localhost:3001/_next/image?url=%2Fimages%2Fsymi%2Fgranola.webp&w=48&q=80"
+      },
+      {
+        "width": 135,
+        "naturalWidth": 33,
+        "url": "http://localhost:3001/_next/image?url=%2Fimages%2Fsymi%2Fgranola.webp&w=48&q=80"
+      },
+      {
+        "width": 135,
+        "naturalWidth": 27,
+        "url": "http://localhost:3001/_next/image?url=%2Fimages%2Fsymi%2Fgranola.webp&w=32&q=80"
+      }
+    ]
+  },
+  "trapped": true,
+  "menuNav": 78,
+  "resizedFlavor": "02",
+  "reloadOk": {
+    "scroll": 5490,
+    "overflow": false,
+    "pins": 2
+  },
+  "backOk": {
+    "hash": "#flavors",
+    "scroll": 5490,
+    "overflow": false
+  },
+  "errors": []
+}

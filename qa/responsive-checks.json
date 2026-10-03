@@ -1,0 +1,107 @@
+[
+  {
+    "width": 1440,
+    "height": 900,
+    "viewport": 1440,
+    "pageWidth": 1440,
+    "pageHeight": 12761,
+    "brokenImages": [],
+    "h1": "Crafted Frozen Yogurt",
+    "nextFlavor": "02",
+    "accessibility": [],
+    "overflow": false,
+    "errors": []
+  },
+  {
+    "width": 1280,
+    "height": 800,
+    "viewport": 1280,
+    "pageWidth": 1280,
+    "pageHeight": 11617,
+    "brokenImages": [],
+    "h1": "Crafted Frozen Yogurt",
+    "overflow": false,
+    "errors": []
+  },
+  {
+    "width": 1024,
+    "height": 768,
+    "viewport": 1024,
+    "pageWidth": 1024,
+    "pageHeight": 10906,
+    "brokenImages": [],
+    "h1": "Crafted Frozen Yogurt",
+    "overflow": false,
+    "errors": []
+  },
+  {
+    "width": 430,
+    "height": 932,
+    "viewport": 430,
+    "pageWidth": 430,
+    "pageHeight": 7860,
+    "brokenImages": [],
+    "h1": "Crafted Frozen Yogurt",
+    "menu": {
+      "modal": true,
+      "closed": true
+    },
+    "overflow": false,
+    "errors": []
+  },
+  {
+    "width": 390,
+    "height": 844,
+    "viewport": 390,
+    "pageWidth": 390,
+    "pageHeight": 7381,
+    "brokenImages": [],
+    "h1": "Crafted Frozen Yogurt",
+    "menu": {
+      "modal": true,
+      "closed": true
+    },
+    "nextFlavor": "02",
+    "accessibility": [],
+    "overflow": false,
+    "errors": []
+  },
+  {
+    "width": 375,
+    "height": 812,
+    "viewport": 375,
+    "pageWidth": 375,
+    "pageHeight": 7223,
+    "brokenImages": [],
+    "h1": "Crafted Frozen Yogurt",
+    "menu": {
+      "modal": true,
+      "closed": true
+    },
+    "overflow": false,
+    "errors": []
+  },
+  {
+    "width": 1920,
+    "height": 1080,
+    "viewport": 1920,
+    "pageWidth": 1920,
+    "pageHeight": 15064,
+    "brokenImages": [],
+    "h1": "Crafted Frozen Yogurt",
+    "overflow": false,
+    "errors": []
+  },
+  {
+    "width": 1440,
+    "reducedMotion": true,
+    "pins": 0,
+    "overflow": false
+  },
+  {
+    "width": 390,
+    "reducedMotion": true,
+    "pins": 0,
+    "overflow": false
+  }
+]

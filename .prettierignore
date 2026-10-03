@@ -1,0 +1,8 @@
+node_modules
+.next
+.agents
+.codex
+.work
+public
+package-lock.json
+skills-lock.json

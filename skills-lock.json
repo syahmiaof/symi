@@ -1,0 +1,11 @@
+{
+  "version": 1,
+  "skills": {
+    "astra-frontend-design": {
+      "source": "Enixes/astra-frontend-design",
+      "sourceType": "github",
+      "skillPath": "SKILL.md",
+      "computedHash": "03643a6a30cbb7ba29ea468fcc5c25b009156ae35b5826f13e20d6f8e6348207"
+    }
+  }
+}

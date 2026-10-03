@@ -1,0 +1,42 @@
+[
+  {
+    "engine": "chromium",
+    "width": 430,
+    "height": 932,
+    "status": 200,
+    "flavor": "02",
+    "launchTop": 340,
+    "overflow": false,
+    "errors": []
+  },
+  {
+    "engine": "chromium",
+    "width": 375,
+    "height": 812,
+    "status": 200,
+    "flavor": "02",
+    "launchTop": 233,
+    "overflow": false,
+    "errors": []
+  },
+  {
+    "engine": "webkit",
+    "width": 390,
+    "height": 844,
+    "status": 200,
+    "flavor": "02",
+    "launchTop": 264,
+    "overflow": false,
+    "errors": []
+  },
+  {
+    "engine": "webkit",
+    "width": 1440,
+    "height": 900,
+    "status": 200,
+    "flavor": "02",
+    "launchTop": 79,
+    "overflow": false,
+    "errors": []
+  }
+]
