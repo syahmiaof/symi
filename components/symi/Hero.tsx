@@ -91,7 +91,11 @@ export default function Hero() {
           </a>
         </div>
       </section>
-      <aside className="hero-preview" aria-label="A brighter way to yogurt">
+      <aside
+        id="story-preview"
+        className="hero-preview"
+        aria-label="A brighter way to yogurt"
+      >
         <div className="hero-preview-copy">
           <p className="eyebrow">Our story</p>
           <h2>

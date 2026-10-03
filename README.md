@@ -29,13 +29,14 @@ Read `DESIGN.md` before UI changes. The authority is the supplied PNGs, followed
 
 `data/visual-assets.md` records the generated photographic plates, transparent cutouts, source-photo crops and exact prompts. All production assets are local WebP files. The original reference PNGs are preserved locally and excluded from Git and deployment. No complete mockup screenshot is used as a webpage.
 
-`scripts/prepare_assets.py` reproduces the original product extractions. `scripts/prepare_fonts.py` reproduces static Manrope subsets. These build-time Python tools are not deployment dependencies.
+`scripts/prepare_assets.py` reproduces the original product extractions. `scripts/prepare_fonts.py` and `scripts/prepare_display_fonts.py` reproduce static Manrope and Bodoni Moda subsets. `scripts/prepare_explosion.py` partitions the approved explosion photograph into its 30 animation layers. These build-time Python tools are not deployment dependencies.
 
 ## Browser QA
 
 ```sh
 npx playwright install chromium webkit
 npm run qa
+node scripts/motion-qa.mjs
 ```
 
 `QA_URL` overrides the target server; `QA_OUTPUT` overrides the evidence directory. Defaults: `http://localhost:3000` and `.work/visual-correction/final`.
@@ -52,4 +53,4 @@ Vercel Git integration deploys `main`. Credentials and `.vercel` are excluded fr
 
 ## Limits
 
-Missing photographic layers were reconstructed from references, so individual pixels and some scene details differ. The exploded product uses two clipped photographic layers plus an assembled cutout, rather than a 3D fluid simulation. Browser checks do not establish physical-device Safari performance.
+Missing photographic layers were reconstructed from references, so individual pixels and some scene details differ. The explosion uses 30 separately masked photographic layers with a held reference keyframe, plus an assembled cup for the opening and closing poses. It is photographic compositing, rather than a 3D fluid simulation. Browser checks do not establish physical-device Safari performance.

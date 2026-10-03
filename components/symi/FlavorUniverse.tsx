@@ -67,13 +67,14 @@ export default function FlavorUniverse() {
           tabIndex={0}
           role="region"
           aria-label="Four flavors. Swipe or use arrow buttons to explore."
-          data-lenis-prevent
+          data-lenis-prevent-touch
         >
-          {flavors.map((flavor) => (
+          {[...flavors, ...flavors.slice(0, 3)].map((flavor, index) => (
             <article
-              className={`flavor-panel flavor-${flavor.id}`}
-              key={flavor.id}
-              aria-label={flavor.name}
+              className={`flavor-panel flavor-${flavor.id}${index >= 4 ? " flavor-repeat" : ""}`}
+              key={`${flavor.id}-${index}`}
+              aria-label={index < 4 ? flavor.name : undefined}
+              aria-hidden={index >= 4 ? true : undefined}
             >
               <Image
                 className="flavor-environment"
@@ -100,6 +101,7 @@ export default function FlavorUniverse() {
                 <a
                   className="outline-arrow"
                   href="#launch"
+                  tabIndex={index >= 4 ? -1 : undefined}
                   aria-label={`Discover ${flavor.name}, launching 2027`}
                 >
                   <Arrow />

@@ -2,6 +2,11 @@
 import { useRef, type ReactNode } from "react";
 import Lenis from "lenis";
 import { gsap, ScrollTrigger, useGSAP } from "@/lib/motion/gsap";
+import {
+  createExplosion,
+  createFlavorJourney,
+  scrollAnchor,
+} from "@/lib/motion/scenes";
 export default function MotionProvider({ children }: { children: ReactNode }) {
   const root = useRef<HTMLDivElement>(null);
   useGSAP(
@@ -45,23 +50,19 @@ export default function MotionProvider({ children }: { children: ReactNode }) {
         if (!target) return;
         event.preventDefault();
         requestAnimationFrame(() => {
-          const pin = ScrollTrigger.getById(`${id}-pin`);
-          const offset = ["home", "swirl", "flavors", "story"].includes(id)
-            ? 0
-            : 90;
-          scrollTo(
-            Math.max(
-              0,
-              pin
-                ? pin.start
-                : target.getBoundingClientRect().top + window.scrollY - offset,
-            ),
-          );
+          const anchor = scrollAnchor(id);
+          if (!anchor) return;
+          scrollTo(anchor.top);
           history.pushState(null, "", `#${id}`);
           target.setAttribute("tabindex", "-1");
           target.focus({ preventScroll: true });
         });
       };
+      const restoreHash = () => {
+        const anchor = scrollAnchor(location.hash.slice(1));
+        if (anchor) scrollTo(anchor.top);
+      };
+      window.addEventListener("popstate", restoreHash);
       window.addEventListener("symi:scroll", requestedScroll);
       window.addEventListener("symi:pause", pause);
       document.addEventListener("click", anchors);
@@ -100,96 +101,29 @@ export default function MotionProvider({ children }: { children: ReactNode }) {
               ease: "power2.out",
             });
             if (desktop) {
-              const tl = gsap.timeline({
-                scrollTrigger: {
-                  id: "swirl-pin",
-                  trigger: q(".swirl-scene")[0],
-                  start: "top top",
-                  end: () => `+=${innerHeight * 2.2}`,
-                  pin: true,
-                  scrub: 0.55,
-                  invalidateOnRefresh: true,
-                },
-              });
-              tl.fromTo(
-                q(".swirl-assembled"),
-                { y: 18, opacity: 1 },
-                { y: 0, opacity: 1, duration: 0.35 },
-              )
-                .to(q(".swirl-assembled"), { opacity: 0, duration: 0.5 }, 0.35)
-                .fromTo(
-                  q(".swirl-top"),
-                  { yPercent: 13, scale: 0.88, opacity: 0 },
-                  {
-                    yPercent: 0,
-                    scale: 1,
-                    opacity: 1,
-                    duration: 0.75,
-                    ease: "power2.out",
-                  },
-                  0.4,
-                )
-                .fromTo(
-                  q(".swirl-vessel"),
-                  { yPercent: -7, scale: 0.9, opacity: 0 },
-                  {
-                    yPercent: 0,
-                    scale: 1,
-                    opacity: 1,
-                    duration: 0.75,
-                    ease: "power2.out",
-                  },
-                  0.4,
-                )
-                .fromTo(
-                  q(".callout"),
-                  { opacity: 0 },
-                  { opacity: 1, duration: 0.35, stagger: 0.06 },
-                  0.85,
-                )
-                .to({}, { duration: 1.8 })
-                .to(q(".callout"), { opacity: 0, duration: 0.3 })
-                .to(
-                  q(".swirl-top"),
-                  { yPercent: 10, scale: 0.9, opacity: 0, duration: 0.65 },
-                  ">-.1",
-                )
-                .to(
-                  q(".swirl-vessel"),
-                  { yPercent: -6, scale: 0.94, opacity: 0, duration: 0.65 },
-                  "<",
-                )
-                .to(
-                  q(".swirl-assembled"),
-                  { opacity: 1, duration: 0.5 },
-                  "<.15",
-                );
-              const track = q(".flavor-track")[0] as HTMLElement;
-              gsap.to(track, {
-                x: () =>
-                  -Math.max(
-                    0,
-                    track.scrollWidth - innerWidth - innerWidth * 0.03,
-                  ),
+              gsap.to(q(".hero-product"), {
+                y: 12,
                 ease: "none",
                 scrollTrigger: {
-                  id: "flavors-pin",
-                  trigger: q(".flavor-scene")[0],
+                  trigger: q(".hero")[0],
                   start: "top top",
-                  end: () => `+=${innerHeight * 1.25}`,
-                  pin: true,
-                  scrub: 0.55,
-                  invalidateOnRefresh: true,
-                  onUpdate: (self) => {
-                    const current = el.querySelector(".flavor-current");
-                    if (current)
-                      current.textContent = String(
-                        Math.round(self.progress * 3) + 1,
-                      ).padStart(2, "0");
-                  },
+                  end: "bottom top",
+                  scrub: 0.3,
+                },
+              });
+              gsap.from(q(".story-interior"), {
+                clipPath: "inset(0 0 9% 0)",
+                ease: "none",
+                scrollTrigger: {
+                  trigger: q(".story-section")[0],
+                  start: "top 90%",
+                  end: "top 35%",
+                  scrub: 0.3,
                 },
               });
             }
+            createExplosion(el, Boolean(desktop));
+            if (desktop) createFlavorJourney(el);
           }
           const track = el.querySelector<HTMLElement>(".flavor-track");
           const nativeProgress = () => {
@@ -197,6 +131,12 @@ export default function MotionProvider({ children }: { children: ReactNode }) {
             const panel = track.querySelector<HTMLElement>(".flavor-panel");
             if (!panel) return;
             const gap = parseFloat(getComputedStyle(track).columnGap) || 0;
+            const position = track.scrollLeft / (panel.offsetWidth + gap);
+            if (
+              track.dataset.targetIndex !== undefined &&
+              Math.abs(position - Number(track.dataset.targetIndex)) < 0.02
+            )
+              delete track.dataset.targetIndex;
             const current = el.querySelector(".flavor-current");
             if (current)
               current.textContent = String(
@@ -214,9 +154,16 @@ export default function MotionProvider({ children }: { children: ReactNode }) {
             );
             buttons[event.key === "ArrowRight" ? 1 : 0]?.click();
           };
+          const clearTarget = () => {
+            if (track) delete track.dataset.targetIndex;
+          };
+          window.addEventListener("wheel", clearTarget, { passive: true });
+          track?.addEventListener("touchstart", clearTarget, { passive: true });
           track?.addEventListener("scroll", nativeProgress, { passive: true });
           track?.addEventListener("keydown", keyboard);
           return () => {
+            window.removeEventListener("wheel", clearTarget);
+            track?.removeEventListener("touchstart", clearTarget);
             track?.removeEventListener("scroll", nativeProgress);
             track?.removeEventListener("keydown", keyboard);
             gsap.ticker.remove(tick);
@@ -226,28 +173,45 @@ export default function MotionProvider({ children }: { children: ReactNode }) {
         },
       );
       const header = el.querySelector(".site-header");
+      let boundaries: { id: string; top: number; bottom: number }[] = [];
+      const cacheBoundaries = () => {
+        boundaries = ["flavors", "story", "launch", "story-preview"].flatMap(
+          (id) => {
+            const section = document.getElementById(id);
+            if (!section) return [];
+            const box = section.getBoundingClientRect();
+            return [
+              { id, top: box.top + scrollY, bottom: box.bottom + scrollY },
+            ];
+          },
+        );
+      };
       const onScroll = () => {
-        header?.classList.toggle("is-scrolled", scrollY > 40);
         const y = scrollY + 95;
-        const inSection = (id: string) => {
-          const section = document.getElementById(id);
-          if (!section) return false;
-          const box = section.getBoundingClientRect();
-          return box.top + scrollY <= y && box.bottom + scrollY > y;
-        };
+        const active = boundaries.find(
+          (section) => section.top <= y && section.bottom > y,
+        )?.id;
+        header?.classList.toggle("is-scrolled", scrollY > 40);
         header?.classList.toggle(
           "is-light",
-          innerWidth < 768 &&
-            (inSection("flavors") || inSection("story") || inSection("launch")),
+          innerWidth < 768 && Boolean(active),
         );
         header?.classList.toggle(
           "on-cream",
-          inSection("story") || inSection("launch"),
+          active === "story" ||
+            active === "launch" ||
+            active === "story-preview",
         );
       };
+      const refreshed = () => {
+        cacheBoundaries();
+        onScroll();
+      };
+      ScrollTrigger.addEventListener("refresh", refreshed);
+      cacheBoundaries();
       onScroll();
       window.addEventListener("scroll", onScroll, { passive: true });
-      window.addEventListener("resize", onScroll);
+      window.addEventListener("resize", refreshed);
       Promise.all([
         document.fonts.ready,
         ...Array.from(
@@ -258,13 +222,16 @@ export default function MotionProvider({ children }: { children: ReactNode }) {
           ScrollTrigger.sort();
           ScrollTrigger.refresh();
           onScroll();
+          if (location.hash) restoreHash();
         }
       });
       return () => {
         alive = false;
         mm.revert();
         window.removeEventListener("scroll", onScroll);
-        window.removeEventListener("resize", onScroll);
+        window.removeEventListener("resize", refreshed);
+        window.removeEventListener("popstate", restoreHash);
+        ScrollTrigger.removeEventListener("refresh", refreshed);
         window.removeEventListener("symi:scroll", requestedScroll);
         window.removeEventListener("symi:pause", pause);
         document.removeEventListener("click", anchors);

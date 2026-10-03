@@ -1,68 +1,63 @@
-{
-  "perf": {
-    "cls": 0,
-    "lcpMs": 140,
-    "transferBytes": 467808,
-    "images": [
-      {
-        "width": 229,
-        "naturalWidth": 258,
-        "url": "http://localhost:3001/_next/image?url=%2Fimages%2Fsymi%2Fstore-lifestyle.webp&w=384&q=80"
-      },
-      {
-        "width": 292,
-        "naturalWidth": 279,
-        "url": "http://localhost:3001/_next/image?url=%2Fimages%2Fsymi%2Fkiwi-cup.webp&w=384&q=90"
-      },
-      {
-        "width": 110,
-        "naturalWidth": 100,
-        "url": "http://localhost:3001/_next/image?url=%2Fimages%2Fsymi%2Fkiwi-slice.webp&w=128&q=80"
-      },
-      {
-        "width": 135,
-        "naturalWidth": 70,
-        "url": "http://localhost:3001/_next/image?url=%2Fimages%2Fsymi%2Fgranola.webp&w=96&q=80"
-      },
-      {
-        "width": 135,
-        "naturalWidth": 34,
-        "url": "http://localhost:3001/_next/image?url=%2Fimages%2Fsymi%2Fgranola.webp&w=48&q=80"
-      },
-      {
-        "width": 283,
-        "naturalWidth": 0,
-        "url": ""
-      },
-      {
-        "width": 135,
-        "naturalWidth": 38,
-        "url": "http://localhost:3001/_next/image?url=%2Fimages%2Fsymi%2Fgranola.webp&w=48&q=80"
-      },
-      {
-        "width": 135,
-        "naturalWidth": 33,
-        "url": "http://localhost:3001/_next/image?url=%2Fimages%2Fsymi%2Fgranola.webp&w=48&q=80"
-      },
-      {
-        "width": 135,
-        "naturalWidth": 27,
-        "url": "http://localhost:3001/_next/image?url=%2Fimages%2Fsymi%2Fgranola.webp&w=32&q=80"
-      }
-    ]
+[
+  {
+    "engine": "chromium",
+    "width": 1440,
+    "height": 900,
+    "checks": [
+      "Explosion entry, separation, held peak and reassembly have distinct transforms",
+      "Reverse scrolling reproduces the same cup coordinates",
+      "All four desktop flavors advance one full panel",
+      "Rapid arrow input reaches requested final flavor",
+      "Wheel input over the horizontal rail does not trap scrolling",
+      "Navigation interrupts scrub and lands on Story correctly",
+      "Browser back restores section navigation",
+      "Breakpoint changes remove and rebuild exactly two desktop pins",
+      "Reduced motion removes pins and preserves flavor controls"
+    ],
+    "errors": []
   },
-  "trapped": true,
-  "menuNav": 78,
-  "resizedFlavor": "02",
-  "reloadOk": {
-    "scroll": 5490,
-    "overflow": false,
-    "pins": 2
+  {
+    "engine": "webkit",
+    "width": 1440,
+    "height": 900,
+    "checks": [
+      "Explosion entry, separation, held peak and reassembly have distinct transforms",
+      "Reverse scrolling reproduces the same cup coordinates",
+      "All four desktop flavors advance one full panel",
+      "Rapid arrow input reaches requested final flavor",
+      "Navigation interrupts scrub and lands on Story correctly",
+      "Browser back restores section navigation",
+      "Breakpoint changes remove and rebuild exactly two desktop pins",
+      "Reduced motion removes pins and preserves flavor controls"
+    ],
+    "errors": []
   },
-  "backOk": {
-    "hash": "#flavors",
-    "scroll": 5490,
-    "overflow": false
+  {
+    "engine": "chromium",
+    "width": 390,
+    "height": 844,
+    "checks": [
+      "Touch layout uses natural scrolling without pins",
+      "Mobile native carousel advances and reverses through every flavor",
+      "Keyboard right arrow controls native carousel",
+      "Mobile menu closes and scrolls to Story without focus jump",
+      "Header remains readable on cream sections",
+      "Reduced motion removes pins and preserves flavor controls"
+    ],
+    "errors": []
   },
-  "errors": []
-}
+  {
+    "engine": "webkit",
+    "width": 390,
+    "height": 844,
+    "checks": [
+      "Touch layout uses natural scrolling without pins",
+      "Mobile native carousel advances and reverses through every flavor",
+      "Keyboard right arrow controls native carousel",
+      "Mobile menu closes and scrolls to Story without focus jump",
+      "Header remains readable on cream sections",
+      "Reduced motion removes pins and preserves flavor controls"
+    ],
+    "errors": []
+  }
+]

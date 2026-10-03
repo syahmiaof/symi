@@ -9,6 +9,7 @@
     "lint": "eslint app components lib data scripts next.config.ts eslint.config.mjs",
     "typecheck": "tsc --noEmit",
     "qa": "node scripts/qa.mjs",
+    "qa:motion": "node scripts/motion-qa.mjs",
     "format": "prettier --write app components lib data scripts/qa.mjs *.ts *.mjs *.json *.md"
   },
   "dependencies": {

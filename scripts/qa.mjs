@@ -74,6 +74,10 @@ for (const [engine, viewports] of [
     });
     await page.goto(base, { waitUntil: "networkidle" });
     await settle(page);
+    if (width >= 1024)
+      await page
+        .locator(".pin-spacer-swirl-pin")
+        .waitFor({ state: "attached" });
     const result = {
       engine: engine.name(),
       width,
@@ -176,7 +180,7 @@ if (
       r.pins ||
       r.overflow ||
       (r.menu && (!r.menu.opened || !r.menu.closed || !r.menu.focusRestored)) ||
-      r.nextFlavor === "01",
+      (r.nextFlavor !== undefined && r.nextFlavor !== "02"),
   )
 )
   process.exitCode = 1;

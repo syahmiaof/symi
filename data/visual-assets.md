@@ -6,15 +6,15 @@ All production assets live in `public/images/symi/`. The complete reference PNGs
 
 Generated on 2026-10-04 using the built-in image generation/editing tool, then cropped to alpha bounds where relevant and encoded as WebP. No API-key/CLI image generation path was used. These are reconstructed photographic layers; they are not guaranteed pixel-identical to the reference photographs.
 
-| Saved production asset | Input reference | Operation |
-| --- | --- | --- |
-| `mediterranean-plate.webp` | Crafted frozen yogurt landing page | Remove all UI and central product; retain landscape architecture, foliage, marble and fruit |
-| `hero-kiwi.webp` | Crafted frozen yogurt landing page | Extract central yogurt/cup on real alpha |
-| `exploded-kiwi.webp` | Swirl Mediterranean kiwi delight | Extract explosion on real alpha; CSS clips split it into upper/lower motion layers |
-| `swirl-plate.webp` | Swirl Mediterranean kiwi delight | Remove product and UI; retain wall, sea arch and marble floor |
-| `kiwi-environment.webp`, `mango-environment.webp`, `berry-environment.webp`, `choco-environment.webp` | Flavor universe carousel | Reconstruct four clean photographic environments, then split the strip |
-| `ingredients-scene.webp`, `seating-scene.webp`, `coast-scene.webp` | A brighter way to yogurt | Reconstruct bottom photographic strip without overprinted captions, then split the strip |
-| `mobile-plate.webp` | Frozen yogurt mobile showcase | Reconstruct the left phone's background as a portrait plate without hardware, UI or cup |
+| Saved production asset                                                                                | Input reference                    | Operation                                                                                                                                                                          |
+| ----------------------------------------------------------------------------------------------------- | ---------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `mediterranean-plate.webp`                                                                            | Crafted frozen yogurt landing page | Remove all UI and central product; retain landscape architecture, foliage, marble and fruit                                                                                        |
+| `hero-kiwi.webp`                                                                                      | Crafted frozen yogurt landing page | Extract central yogurt/cup on real alpha                                                                                                                                           |
+| `exploded-kiwi.webp`                                                                                  | Swirl Mediterranean kiwi delight   | Extract explosion on real alpha; `scripts/prepare_explosion.py` partitions the approved alpha into 30 separately positioned photographic layers in `public/images/symi/explosion/` |
+| `swirl-plate.webp`                                                                                    | Swirl Mediterranean kiwi delight   | Remove product and UI; retain wall, sea arch and marble floor                                                                                                                      |
+| `kiwi-environment.webp`, `mango-environment.webp`, `berry-environment.webp`, `choco-environment.webp` | Flavor universe carousel           | Reconstruct four clean photographic environments, then split the strip                                                                                                             |
+| `ingredients-scene.webp`, `seating-scene.webp`, `coast-scene.webp`                                    | A brighter way to yogurt           | Reconstruct bottom photographic strip without overprinted captions, then split the strip                                                                                           |
+| `mobile-plate.webp`                                                                                   | Frozen yogurt mobile showcase      | Reconstruct the left phone's background as a portrait plate without hardware, UI or cup                                                                                            |
 
 ## Other sources
 
@@ -54,3 +54,9 @@ Extract ONLY the bottom row of three photographic images from this reference and
 ### Mobile environment
 
 Extract and reconstruct ONLY the photographic environment from inside the LEFT phone screen. Final image portrait 9:20, no phone hardware, no status bar, no text, no logos, no UI, no icons, no product cup or yogurt. Preserve the very dark navy Mediterranean wall covering most of left and center, the ONE tall cream arch at far right with blue sea and mountain beyond, realistic foliage at left lower edge and bottom corners, and the white marble pedestal floor across bottom 12 percent. Keep a few kiwi slices and golden granola on bottom marble. Remove every yogurt cup, all headings and buttons and all phone framing. This is a clean mobile background plate behind real HTML text and a separate product cutout. Natural undistorted architecture, exact deep navy color and lighting of the left reference phone.
+
+## Motion layer preparation
+
+Bodoni Moda normal 400/700/900 and italic 400 are static WOFF2 instances at optical size 11, prepared with `scripts/prepare_display_fonts.py`. Separate files avoid WebKit rendering variable font weights as thin regular text. Source: Google Fonts, SIL Open Font License included at `app/fonts/Bodoni-OFL.txt`.
+
+`data/explosion-layers.json` stores exact percentage coordinates and dimensions. The preparation script partitions every nonzero source-alpha pixel into one layer; it does not create new photographic content. The cup, yogurt, attached fruit and sauce share a stage transform to preserve their photographic seams. Disconnected kiwi, leaves, granola and droplets have individual trajectories. All 30 layers recompose the approved photograph at the held keyframe. Source originals remain untouched.

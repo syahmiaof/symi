@@ -1,6 +1,7 @@
 import Image from "next/image";
+import layers from "@/data/explosion-layers.json";
 import { Arrow } from "./Brand";
-import Benefits, { BenefitIcon } from "./Benefits";
+import Benefits, { IngredientIcon } from "./Benefits";
 const callouts = [
   {
     id: "yogurt",
@@ -104,27 +105,32 @@ export default function SwirlExplosion() {
           role="img"
           aria-label="Exploded SYMI kiwi yogurt: white yogurt swirl, kiwi sauce ribbons, fresh kiwi, golden granola and tilted navy cup"
         >
-          <Image
-            className="swirl-layer swirl-top"
-            src="/images/symi/exploded-kiwi.webp"
-            alt=""
-            fill
-            sizes="55vw"
-            quality={90}
-          />
-          <Image
-            className="swirl-layer swirl-vessel"
-            src="/images/symi/exploded-kiwi.webp"
-            alt=""
-            fill
-            sizes="55vw"
-            quality={90}
-          />
+          {layers.map((layer) => (
+            <Image
+              key={layer.id}
+              className={`explosion-layer explosion-${layer.kind}`}
+              data-layer={layer.id}
+              data-kind={layer.kind}
+              data-center-x={layer.x + layer.width / 2}
+              data-center-y={layer.y + layer.height / 2}
+              src={`/images/symi/explosion/${layer.id}.webp`}
+              alt=""
+              width={layer.pixelWidth}
+              height={layer.pixelHeight}
+              unoptimized
+              style={{
+                left: `${layer.x}%`,
+                top: `${layer.y}%`,
+                width: `${layer.width}%`,
+                height: `${layer.height}%`,
+              }}
+            />
+          ))}
         </div>
         <div className="swirl-callouts">
           {callouts.map((c) => (
             <div className={`callout callout-${c.id}`} key={c.id}>
-              <BenefitIcon type={c.icon} />
+              <IngredientIcon kind={c.id} />
               <span className="callout-line" />
               <strong>{c.title}</strong>
               <p>{c.description}</p>
@@ -138,6 +144,9 @@ export default function SwirlExplosion() {
           </a>
           <a href="#flavors">03</a>
           <a href="#story">04</a>
+          <span className="explosion-progress" aria-hidden="true">
+            <i />
+          </span>
           <span className="scroll-cue">
             <span className="mouse" />
             Scroll

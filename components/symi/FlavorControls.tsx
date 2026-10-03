@@ -8,8 +8,12 @@ export default function FlavorControls() {
     if (!track) return;
     const trigger = ScrollTrigger.getById("flavors-pin");
     if (trigger) {
-      const index = Math.round(trigger.progress * 3);
+      const index =
+        track.dataset.targetIndex !== undefined
+          ? Number(track.dataset.targetIndex)
+          : Math.round(trigger.progress * 3);
       const next = Math.min(3, Math.max(0, index + direction));
+      track.dataset.targetIndex = String(next);
       window.dispatchEvent(
         new CustomEvent("symi:scroll", {
           detail: trigger.start + ((trigger.end - trigger.start) * next) / 3,
@@ -23,8 +27,14 @@ export default function FlavorControls() {
         (parseFloat(getComputedStyle(track).columnGap) || 0);
       const next = Math.min(
         3,
-        Math.max(0, Math.round(track.scrollLeft / width) + direction),
+        Math.max(
+          0,
+          Number(
+            track.dataset.targetIndex ?? Math.round(track.scrollLeft / width),
+          ) + direction,
+        ),
       );
+      track.dataset.targetIndex = String(next);
       track.scrollTo({
         left: next * width,
         behavior: matchMedia("(prefers-reduced-motion: reduce)").matches

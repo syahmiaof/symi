@@ -84,7 +84,6 @@
   height: 69% !important;
   inset: auto;
   z-index: 2;
-  transform: none !important;
 }
 .hero-cup {
   display: block;
@@ -2068,4 +2067,68 @@ figure,
     z-index: 2;
     transform: rotate(-12deg);
   }
+}
+/* Motion layers preserve the photograph's coordinates at the held reference frame. */
+.explosion-layer {
+  position: absolute;
+  max-width: none;
+  object-fit: fill;
+  pointer-events: none;
+  transform-origin: center;
+  will-change: transform, opacity;
+}
+.explosion-progress {
+  position: absolute;
+  left: -2px;
+  top: 0;
+  width: 3px;
+  height: 100%;
+  background: #fff3;
+  pointer-events: none;
+}
+.explosion-progress i {
+  display: block;
+  width: 100%;
+  height: 100%;
+  background: #fff;
+  transform-origin: top;
+  transform: scaleY(0);
+}
+.flavor-progress:before {
+  width: var(--progress, 25%) !important;
+}
+.flavor-repeat {
+  display: block;
+}
+@media (max-width: 1023px), (prefers-reduced-motion: reduce) {
+  .flavor-repeat {
+    display: none;
+  }
+  .explosion-progress {
+    display: none;
+  }
+  .explosion-layer {
+    will-change: auto;
+  }
+}
+@media (min-width: 1024px) and (prefers-reduced-motion: no-preference) {
+  .flavor-track {
+    will-change: transform;
+  }
+}
+@media (min-width: 768px) {
+  .flavor-repeat {
+    display: block;
+  }
+}
+@media (max-width: 767px) {
+  .flavor-repeat {
+    display: none;
+  }
+}
+.site-header {
+  position: fixed;
+  transition:
+    background-color 0.2s,
+    color 0.2s;
 }

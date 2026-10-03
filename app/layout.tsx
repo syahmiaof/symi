@@ -1,12 +1,14 @@
 import type { Metadata, Viewport } from "next";
-import { Bodoni_Moda } from "next/font/google";
 import localFont from "next/font/local";
 import "./globals.css";
 import "./reference.css";
-const display = Bodoni_Moda({
-  weight: ["400", "700", "900"],
-  style: ["normal", "italic"],
-  subsets: ["latin"],
+const display = localFont({
+  src: [
+    { path: "./fonts/bodoni-400-normal.woff2", weight: "400", style: "normal" },
+    { path: "./fonts/bodoni-700-normal.woff2", weight: "700", style: "normal" },
+    { path: "./fonts/bodoni-900-normal.woff2", weight: "900", style: "normal" },
+    { path: "./fonts/bodoni-400-italic.woff2", weight: "400", style: "italic" },
+  ],
   variable: "--font-display",
   display: "swap",
 });
