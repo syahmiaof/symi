@@ -50,9 +50,6 @@ export default function FlavorUniverse() {
                 </p>
                 <p className="flavor-description">{flavor.description}</p>
               </div>
-              <span className="flavor-ghost" aria-hidden="true">
-                {flavor.number}
-              </span>
               <div className="flavor-product">
                 <div className="product-ground" />
                 <Image

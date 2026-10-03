@@ -893,17 +893,6 @@ button:focus-visible {
   transform: rotate(-5deg);
   right: 12%;
 }
-.flavor-ghost {
-  position: absolute;
-  right: -1%;
-  bottom: -24%;
-  font-family: var(--font-display), serif;
-  font-size: 40vw;
-  line-height: 1;
-  color: currentColor;
-  opacity: 0.065;
-  z-index: -1;
-}
 .flavor-floating {
   position: absolute;
   right: 9%;
@@ -1600,10 +1589,6 @@ button:focus-visible {
     width: 55%;
     right: 4%;
   }
-  .flavor-ghost {
-    font-size: 60vw;
-    bottom: -8%;
-  }
   .flavor-signature {
     right: 16px;
     bottom: 25px;
@@ -2039,10 +2024,6 @@ button:focus-visible {
     width: 80%;
     top: 23%;
     right: -20%;
-  }
-  .flavor-ghost {
-    font-size: 90vw;
-    bottom: -3%;
   }
   .flavor-signature {
     font-size: 7px;
