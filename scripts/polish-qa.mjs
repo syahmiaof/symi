@@ -100,8 +100,8 @@ for (const [engine, width, height] of [
   const swirlHeight = await p
     .locator(".swirl-scene")
     .evaluate((e) => e.offsetHeight);
-  const start = width >= 1024 ? swirlTop : swirlTop - height * 0.55;
-  const distance = width >= 1024 ? height * 2.8 : swirlHeight + height * 0.2;
+  const start = swirlTop;
+  const distance = swirlHeight * 3.2;
   const times = [];
   for (const fraction of [0.05, 0.3, 0.5, 0.7, 0.92, 0.3]) {
     await scroll(start + distance * fraction, 1000);

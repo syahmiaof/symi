@@ -125,7 +125,7 @@ export default function FlavorUniverse() {
                   alt={`${flavor.name} frozen yogurt in a SYMI cup`}
                   width={flavor.width}
                   height={flavor.height}
-                  sizes="(max-width: 767px) 88vw, 25vw"
+                  sizes="(max-width: 1023px) 88vw, 25vw"
                   quality={90}
                 />
               </div>

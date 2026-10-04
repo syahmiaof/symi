@@ -44,7 +44,7 @@ export default function Story() {
             src="/images/symi/store-interior.webp"
             alt="SYMI store interior with navy feature wall, cream arches, fresh toppings and warm woven pendants"
             fill
-            sizes="55vw"
+            sizes="(max-width: 767px) 95vw, 55vw"
             quality={90}
           />
         </figure>
@@ -75,7 +75,7 @@ export default function Story() {
             src="/images/symi/mediterranean-plate.webp"
             alt=""
             fill
-            sizes="32vw"
+            sizes="(max-width: 767px) 95vw, 32vw"
           />
           <Image
             className="story-product-cup"
@@ -83,7 +83,7 @@ export default function Story() {
             alt="Kiwi frozen yogurt with real fruit and golden granola"
             width={1000}
             height={1229}
-            sizes="27vw"
+            sizes="(max-width: 767px) 75vw, 27vw"
           />
           <figcaption>
             <em>Kiwi</em>
@@ -133,7 +133,7 @@ export default function Story() {
             src="/images/symi/ingredients-scene.webp"
             alt="Fresh kiwi and golden granola on a stone countertop"
             fill
-            sizes="33vw"
+            sizes="(max-width: 767px) 50vw, 33vw"
           />
           <figcaption>
             Real
@@ -150,7 +150,7 @@ export default function Story() {
             src="/images/symi/seating-scene.webp"
             alt="A relaxed SYMI seating area overlooking the Mediterranean sea"
             fill
-            sizes="33vw"
+            sizes="(max-width: 767px) 50vw, 33vw"
           />
           <figcaption>
             Simple

@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from "next";
 import localFont from "next/font/local";
 import "./globals.css";
 import "./reference.css";
+import "./mobile-motion.css";
 const display = localFont({
   src: [
     { path: "./fonts/bodoni-400-normal.woff2", weight: "400", style: "normal" },

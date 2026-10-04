@@ -30,7 +30,7 @@ const copySelector = [
 ].join(",");
 
 /** Text retains its layout and accessible name; only its visual words move. */
-export function createTextJourney(root: HTMLElement, desktop: boolean) {
+export function createTextJourney(root: HTMLElement, pinnedScenes: boolean) {
   const targets = Array.from(
     root.querySelectorAll<HTMLElement>(copySelector),
   ).filter((el) => el.getClientRects().length && el.textContent?.trim());
@@ -44,7 +44,8 @@ export function createTextJourney(root: HTMLElement, desktop: boolean) {
     const label = element.matches(".eyebrow, .launch-date, .callout strong");
     const interactive = element.matches("a");
     const panel = element.closest<HTMLElement>(".flavor-panel");
-    const pinned = desktop && element.closest(".swirl-scene, .flavor-scene");
+    const pinned =
+      pinnedScenes && element.closest(".swirl-scene, .flavor-scene");
     const pin = pinned
       ? ScrollTrigger.getById(
           element.closest(".swirl-scene") ? "swirl-pin" : "flavors-pin",
@@ -164,7 +165,7 @@ export function createTextJourney(root: HTMLElement, desktop: boolean) {
       if (panel) {
         ScrollTrigger.create({
           trigger: panel,
-          ...(desktop && flavorAnimation
+          ...(flavorAnimation
             ? { containerAnimation: flavorAnimation }
             : { scroller: track, horizontal: true }),
           start: "left 94%",

@@ -68,10 +68,13 @@ export default function MotionProvider({ children }: { children: ReactNode }) {
         {
           desktop: "(min-width: 1024px)",
           mobile: "(max-width: 1023px)",
+          tall: "(min-height: 600px)",
           reduce: "(prefers-reduced-motion: reduce)",
         },
         (context) => {
-          const { desktop, reduce } = context.conditions!;
+          const { desktop, reduce, tall } = context.conditions!;
+          const pinnedScenes = Boolean(tall && !reduce);
+          el.toggleAttribute("data-pinned-scenes", pinnedScenes);
           let cleanupText: (() => void) | undefined;
           let cleanupVideo: (() => void) | undefined;
           const tick = (time: number) => lenis?.raf(time * 1000);
@@ -86,17 +89,18 @@ export default function MotionProvider({ children }: { children: ReactNode }) {
             gsap.ticker.add(tick);
           }
           if (!reduce) {
+            gsap.to(q(".hero-product"), {
+              y: desktop ? 12 : -32,
+              rotation: desktop ? 0 : 5,
+              ease: "none",
+              scrollTrigger: {
+                trigger: q(".hero")[0],
+                start: "top top",
+                end: "bottom top",
+                scrub: 0.3,
+              },
+            });
             if (desktop) {
-              gsap.to(q(".hero-product"), {
-                y: 12,
-                ease: "none",
-                scrollTrigger: {
-                  trigger: q(".hero")[0],
-                  start: "top top",
-                  end: "bottom top",
-                  scrub: 0.3,
-                },
-              });
               gsap.from(q(".story-interior"), {
                 clipPath: "inset(0 0 9% 0)",
                 ease: "none",
@@ -107,15 +111,49 @@ export default function MotionProvider({ children }: { children: ReactNode }) {
                   scrub: 0.3,
                 },
               });
+            } else {
+              q(
+                ".story-interior, .story-product, .story-gallery figure",
+              ).forEach((photo: HTMLElement) => {
+                gsap.fromTo(
+                  photo,
+                  { clipPath: "inset(8% 0 8% 0 round 22px)" },
+                  {
+                    clipPath: "inset(0% 0 0% 0 round 22px)",
+                    ease: "none",
+                    scrollTrigger: {
+                      trigger: photo,
+                      start: "top 85%",
+                      end: "top 25%",
+                      scrub: 0.5,
+                    },
+                  },
+                );
+              });
+              gsap.fromTo(
+                q(".story-product-cup"),
+                { y: 20, rotation: -3 },
+                {
+                  y: -16,
+                  rotation: 3,
+                  ease: "none",
+                  scrollTrigger: {
+                    trigger: q(".story-product")[0],
+                    start: "top bottom",
+                    end: "bottom top",
+                    scrub: 0.5,
+                  },
+                },
+              );
             }
-            cleanupVideo = createVideoJourney(el, Boolean(desktop));
-            if (desktop) createFlavorJourney(el);
-            cleanupText = createTextJourney(el, Boolean(desktop));
+            cleanupVideo = createVideoJourney(el, pinnedScenes);
+            if (pinnedScenes) createFlavorJourney(el);
+            cleanupText = createTextJourney(el, pinnedScenes);
           }
           el.dataset.motionReady = "true";
           const track = el.querySelector<HTMLElement>(".flavor-track");
           const nativeProgress = () => {
-            if ((desktop && !reduce) || !track) return;
+            if (pinnedScenes || !track) return;
             const panel = track.querySelector<HTMLElement>(".flavor-panel");
             if (!panel) return;
             const gap = parseFloat(getComputedStyle(track).columnGap) || 0;
@@ -145,20 +183,43 @@ export default function MotionProvider({ children }: { children: ReactNode }) {
           const clearTarget = () => {
             if (track) delete track.dataset.targetIndex;
           };
+          let touchOrigin: { x: number; y: number } | undefined;
+          const touchStart = (event: TouchEvent) => {
+            clearTarget();
+            const touch = event.touches[0];
+            touchOrigin = touch
+              ? { x: touch.clientX, y: touch.clientY }
+              : undefined;
+          };
+          const touchEnd = (event: TouchEvent) => {
+            const touch = event.changedTouches[0];
+            if (pinnedScenes && touchOrigin && touch) {
+              const dx = touch.clientX - touchOrigin.x;
+              const dy = touch.clientY - touchOrigin.y;
+              if (Math.abs(dx) > 45 && Math.abs(dx) > Math.abs(dy) * 1.4)
+                el.querySelectorAll<HTMLButtonElement>(
+                  ".flavor-controls button",
+                )[dx < 0 ? 1 : 0]?.click();
+            }
+            touchOrigin = undefined;
+          };
           window.addEventListener("wheel", clearTarget, { passive: true });
-          track?.addEventListener("touchstart", clearTarget, { passive: true });
+          track?.addEventListener("touchstart", touchStart, { passive: true });
+          track?.addEventListener("touchend", touchEnd, { passive: true });
           track?.addEventListener("scroll", nativeProgress, { passive: true });
           track?.addEventListener("keydown", keyboard);
           return () => {
             cleanupText?.();
             cleanupVideo?.();
             window.removeEventListener("wheel", clearTarget);
-            track?.removeEventListener("touchstart", clearTarget);
+            track?.removeEventListener("touchstart", touchStart);
+            track?.removeEventListener("touchend", touchEnd);
             track?.removeEventListener("scroll", nativeProgress);
             track?.removeEventListener("keydown", keyboard);
             gsap.ticker.remove(tick);
             lenis?.destroy();
             lenis = undefined;
+            el.removeAttribute("data-pinned-scenes");
           };
         },
       );

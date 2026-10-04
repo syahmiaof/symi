@@ -1439,7 +1439,7 @@ figure,
     overflow-x: auto;
     scroll-snap-type: x mandatory;
     scrollbar-width: none;
-    transform: none !important;
+    transform: none;
     overscroll-behavior-x: contain;
   }
   .flavor-track::-webkit-scrollbar {

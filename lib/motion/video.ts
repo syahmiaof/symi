@@ -1,7 +1,7 @@
 import { gsap } from "./gsap";
 
 /** Coalesce scroll requests: never queue more than one decoder seek. */
-export function createVideoJourney(root: HTMLElement, desktop: boolean) {
+export function createVideoJourney(root: HTMLElement, pinned: boolean) {
   const scene = root.querySelector<HTMLElement>(".swirl-scene")!;
   const video = scene.querySelector<HTMLVideoElement>("video")!;
   const state = { progress: 0 };
@@ -36,6 +36,20 @@ export function createVideoJourney(root: HTMLElement, desktop: boolean) {
   video.addEventListener("canplay", ready);
   video.addEventListener("seeked", seeked);
   video.addEventListener("error", failed);
+  // Unlock the inline decoder during a real touch on phones, without autoplaying the scene.
+  const unlock = () => {
+    if (disposed) return;
+    video.muted = true;
+    video
+      .play()
+      .then(() => {
+        video.pause();
+        if (disposed) return;
+        schedule();
+      })
+      .catch(() => schedule());
+  };
+  root.addEventListener("touchstart", unlock, { once: true, passive: true });
   const observer = new IntersectionObserver(
     ([entry]) => {
       if (!entry.isIntersecting) return;
@@ -50,10 +64,10 @@ export function createVideoJourney(root: HTMLElement, desktop: boolean) {
     scrollTrigger: {
       id: "swirl-pin",
       trigger: scene,
-      start: desktop ? "top top" : "top 55%",
-      end: desktop ? () => `+=${innerHeight * 2.8}` : "bottom 35%",
-      pin: desktop,
-      anticipatePin: desktop ? 1 : 0,
+      start: pinned ? "top top" : "top 55%",
+      end: pinned ? () => `+=${scene.clientHeight * 3.2}` : "bottom 35%",
+      pin: pinned,
+      anticipatePin: pinned ? 1 : 0,
       scrub: 0.65,
       invalidateOnRefresh: true,
     },
@@ -69,6 +83,25 @@ export function createVideoJourney(root: HTMLElement, desktop: boolean) {
     .to(state, { progress: 0.58, duration: 1.1 })
     .to(state, { progress: 1, duration: 3.5, ease: "none", onUpdate: schedule })
     .to({}, { duration: 0.6 });
+  gsap.fromTo(
+    scene.querySelector(".swirl-callouts"),
+    { autoAlpha: 0, y: 10 },
+    {
+      autoAlpha: 1,
+      y: 0,
+      ease: "none",
+      scrollTrigger: {
+        trigger: scene,
+        start: () =>
+          timeline.scrollTrigger!.start +
+          (timeline.scrollTrigger!.end - timeline.scrollTrigger!.start) * 0.25,
+        end: () =>
+          timeline.scrollTrigger!.start +
+          (timeline.scrollTrigger!.end - timeline.scrollTrigger!.start) * 0.45,
+        scrub: 0.4,
+      },
+    },
+  );
   gsap.fromTo(
     scene.querySelector(".explosion-progress i"),
     { scaleY: 0 },
@@ -89,6 +122,7 @@ export function createVideoJourney(root: HTMLElement, desktop: boolean) {
     cancelAnimationFrame(frame);
     observer.disconnect();
     video.pause();
+    root.removeEventListener("touchstart", unlock);
     video.removeEventListener("loadedmetadata", ready);
     video.removeEventListener("loadeddata", ready);
     video.removeEventListener("canplay", ready);

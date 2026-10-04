@@ -35,11 +35,11 @@ await p.evaluate(() => scrollTo(0, 0));
 await p.waitForTimeout(1000);
 await p.setViewportSize({ width: 390, height: 844 });
 await p.waitForTimeout(1800);
-assert.equal(await p.locator(".pin-spacer").count(), 0);
+assert.equal(await p.locator(".pin-spacer").count(), 2);
 await p.setViewportSize({ width: 1440, height: 900 });
 await p.waitForTimeout(1800);
 assert.equal(await p.locator(".pin-spacer").count(), 2);
-checks.push("Desktop/mobile breakpoint cleanly destroys and recreates pins");
+checks.push("Desktop/mobile breakpoint preserves two clean scene pins");
 await p.evaluate(() => scrollTo(0, document.documentElement.scrollHeight));
 await p.waitForTimeout(2000);
 assert(

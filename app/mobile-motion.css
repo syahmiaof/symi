@@ -1,0 +1,346 @@
+/* The complete scroll journey fits the stable phone viewport, including browser chrome. */
+@media (max-width: 767px) {
+  .story-copy-extra {
+    display: inline;
+  }
+  .story-interior {
+    display: block;
+    height: 76vw;
+    margin: 28px 16px 0;
+    border-radius: 22px;
+  }
+  .story-product {
+    display: block;
+    height: 112vw;
+    margin-top: 16px;
+    border-radius: 22px;
+  }
+  .story-product-cup { object-fit: contain; height: 83%; bottom: 4%; }
+  .experience-copy {
+    display: block;
+    padding: 36px 8px 20px;
+  }
+  .experience-copy h2 {
+    font-size: 12vw;
+    line-height: 0.92;
+    margin: 16px 0;
+  }
+  .experience-copy > p:not(.eyebrow) {
+    font-size: 13px;
+    line-height: 1.6;
+  }
+  .experience-copy .benefits {
+    margin-top: 24px;
+  }
+  .experience-copy .benefits li {
+    font-size: 7px;
+  }
+  .story-gallery {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+  }
+  .story-gallery figure {
+    display: block;
+    height: 80vw;
+    border-radius: 18px;
+  }
+  .story-gallery figure figcaption {
+    left: 8%;
+    right: 8%;
+    font-size: 12px;
+    letter-spacing: .12em;
+    line-height: 1.7;
+    top: auto;
+    bottom: 8%;
+    text-align: left;
+  }
+  .story-gallery figure:nth-child(2) figcaption {
+    top: auto;
+    bottom: 8%;
+    background: #f9f5eedb;
+    padding: 6px;
+    border-radius: 8px;
+  }
+
+  .story-gallery .scenic-photo {
+    grid-column: 1 / -1;
+  }
+  .story-gallery .scenic-photo figcaption br { display: block; }
+}
+@media (max-width: 1023px) and (min-height: 600px) {
+  [data-pinned-scenes] .swirl-scene,
+  [data-pinned-scenes] .flavor-scene {
+    height: 100svh;
+    min-height: 0;
+    max-height: none;
+  }
+  [data-pinned-scenes] .swirl-copy {
+    top: 88px;
+    left: 6%;
+    width: 88%;
+    display: grid;
+    grid-template-columns: 1fr 1.05fr;
+    column-gap: 20px;
+    align-items: start;
+  }
+  [data-pinned-scenes] .swirl-copy .eyebrow {
+    grid-column: 1 / -1;
+    font-size: 7px;
+    letter-spacing: 0.28em;
+    margin: 0 0 12px;
+  }
+  [data-pinned-scenes] .swirl-copy .eyebrow br {
+    display: none;
+  }
+  [data-pinned-scenes] .swirl-copy .eyebrow:after {
+    display: none;
+  }
+  [data-pinned-scenes] .swirl-copy h2 {
+    grid-column: 1;
+    grid-row: 2 / 4;
+    font-size: clamp(44px, 13vw, 70px);
+    line-height: 0.83;
+    margin: 0;
+  }
+  [data-pinned-scenes] .swirl-copy .serif-subtitle {
+    grid-column: 2;
+    font-size: clamp(18px, 4.6vw, 28px);
+    line-height: 1.05;
+  }
+  [data-pinned-scenes] .swirl-copy .body-copy {
+    grid-column: 2;
+    width: 100%;
+    font-size: clamp(10px, 2.65vw, 14px);
+    line-height: 1.45;
+    margin: 8px 0 0;
+  }
+  [data-pinned-scenes] .swirl-copy .button {
+    grid-column: 1 / -1;
+    justify-self: start;
+    margin-top: 12px;
+    min-height: 34px;
+    font-size: 11px;
+    padding-left: 18px;
+  }
+  [data-pinned-scenes] .swirl-copy .button > span {
+    width: 26px;
+    height: 26px;
+  }
+  [data-pinned-scenes] .swirl-video-stage {
+    top: 290px;
+    bottom: 128px;
+    left: 0;
+    right: 0;
+    mask-image: linear-gradient(transparent, #000 6%, #000 94%, transparent);
+  }
+  [data-pinned-scenes] .swirl-video {
+    object-fit: cover;
+    object-position: center;
+  }
+  [data-pinned-scenes] .swirl-callouts {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 8px;
+    inset: auto 6% 62px;
+    z-index: 4;
+  }
+  [data-pinned-scenes] .swirl-callouts .callout {
+    position: static;
+    width: auto;
+    text-align: center;
+  }
+  [data-pinned-scenes] .swirl-callouts .callout > svg {
+    width: 24px;
+    height: 24px;
+    margin: 0 auto 5px;
+  }
+  [data-pinned-scenes] .swirl-callouts .callout strong {
+    font-size: 7px;
+    letter-spacing: 0.09em;
+    margin-bottom: 4px;
+    line-height: 1.4;
+  }
+  [data-pinned-scenes] .swirl-callouts .callout p {
+    font-size: 8px;
+    line-height: 1.35;
+  }
+  [data-pinned-scenes] .swirl-benefits {
+    bottom: 12px;
+    left: 6%;
+    width: 88%;
+  }
+  [data-pinned-scenes] .swirl-benefits .benefits svg {
+    width: 22px;
+    height: 22px;
+    margin-bottom: 4px;
+  }
+  [data-pinned-scenes] .swirl-benefits .benefits li {
+    font-size: 6px;
+    letter-spacing: 0.05em;
+  }
+  [data-pinned-scenes] .swirl-scene .scene-progress {
+    display: none;
+  }
+
+  [data-pinned-scenes] .flavor-heading {
+    height: 258px;
+    padding: 94px 6% 10px;
+    display: block;
+  }
+  [data-pinned-scenes] .flavor-heading h2 {
+    font-size: clamp(32px, 9.8vw, 48px);
+    line-height: 0.94;
+  }
+  [data-pinned-scenes] .flavor-heading > .eyebrow {
+    margin-bottom: 10px;
+  }
+  [data-pinned-scenes] .flavor-intro {
+    margin: 10px 0 0;
+    max-width: 360px;
+    min-width: 0;
+  }
+  [data-pinned-scenes] .flavor-intro > p {
+    font-size: 11px;
+    line-height: 1.5;
+  }
+  [data-pinned-scenes] .flavor-track {
+    width: max-content;
+    max-width: none;
+    height: calc(100% - 322px);
+    margin: 0;
+    gap: 0;
+    overflow: visible;
+    scroll-snap-type: none;
+    transform: translateX(0);
+    touch-action: pan-y;
+    will-change: transform;
+  }
+  [data-pinned-scenes] .flavor-panel {
+    width: 100vw;
+    min-width: 0;
+    height: 100%;
+  }
+  [data-pinned-scenes] .flavor-repeat {
+    display: none;
+  }
+  [data-pinned-scenes] .flavor-product,
+  [data-pinned-scenes] .flavor-berry .flavor-product,
+  [data-pinned-scenes] .flavor-choco .flavor-product {
+    width: 78%;
+    left: 11%;
+    height: calc(100% - 90px);
+    bottom: 85px;
+  }
+  [data-pinned-scenes] .mobile-flavor-art {
+    top: 2%;
+    right: 6%;
+  }
+  [data-pinned-scenes] .mobile-flavor-art > em {
+    font-size: 29px;
+  }
+  [data-pinned-scenes] .mobile-flavor-art > span {
+    font-size: 6px;
+  }
+  [data-pinned-scenes] .mobile-flavor-art .brand-stamp {
+    width: 64px;
+    height: 64px;
+    margin-top: 10px;
+  }
+  [data-pinned-scenes] .mobile-flavor-art .brand-stamp span {
+    font-size: 6px;
+  }
+  [data-pinned-scenes] .mobile-flavor-fruit {
+    bottom: 85px;
+    width: 18%;
+  }
+  [data-pinned-scenes] .mobile-flavor-caption {
+    bottom: 12px;
+    left: 8%;
+    right: 8%;
+  }
+  [data-pinned-scenes] .mobile-flavor-caption h3 {
+    font-size: 26px;
+  }
+  [data-pinned-scenes] .mobile-flavor-caption p {
+    font-size: 11px;
+    margin-top: 5px;
+  }
+  [data-pinned-scenes] .flavor-bottom {
+    bottom: 158px;
+  }
+  [data-pinned-scenes] .flavor-bottom .page-count {
+    display: flex;
+    position: absolute;
+    top: 50px;
+    font-size: 10px;
+  }
+  [data-pinned-scenes] .flavor-bottom .page-count i {
+    display: none;
+  }
+  [data-pinned-scenes] .flavor-controls button {
+    width: 44px;
+    height: 44px;
+  }
+  [data-pinned-scenes] .mobile-flavor-cta {
+    bottom: 16px;
+    min-height: 42px;
+    white-space: nowrap;
+  }
+}
+@media (min-width: 768px) and (max-width: 1023px) and (min-height: 600px) {
+  [data-pinned-scenes] .swirl-copy {
+    top: 112px;
+    width: 40%;
+  }
+  [data-pinned-scenes] .swirl-video-stage {
+    top: 100px;
+    left: 40%;
+    bottom: 140px;
+  }
+  [data-pinned-scenes] .swirl-callouts {
+    left: 20%;
+    right: 20%;
+  }
+  [data-pinned-scenes] .flavor-scene {
+    background: var(--cream);
+    color: var(--navy);
+  }
+  [data-pinned-scenes] .flavor-backdrop,
+  [data-pinned-scenes] .flavor-panel-copy,
+  [data-pinned-scenes] .flavor-environment,
+  [data-pinned-scenes] .flavor-intro > a {
+    display: none;
+  }
+  [data-pinned-scenes] .flavor-heading {
+    padding-top: 112px;
+  }
+  [data-pinned-scenes] .flavor-heading h2 {
+    font-size: 44px;
+  }
+  [data-pinned-scenes] .flavor-subtitle {
+    font-size: 25px;
+  }
+  [data-pinned-scenes] .flavor-intro {
+    max-width: 550px;
+  }
+  [data-pinned-scenes] .flavor-panel {
+    color: var(--navy);
+  }
+  [data-pinned-scenes] .mobile-flavor-caption {
+    display: block;
+    position: absolute;
+    text-align: center;
+  }
+  [data-pinned-scenes] .flavor-controls {
+    width: 100%;
+    justify-content: space-between;
+  }
+  [data-pinned-scenes] .flavor-controls button {
+    color: var(--navy);
+    border-color: var(--navy);
+  }
+}
+
+
+

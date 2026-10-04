@@ -64,8 +64,7 @@ export default function SwirlExplosion() {
         />
         <div className="swirl-copy">
           <p className="eyebrow">
-            Good yogurt
-            <br />
+            Good yogurt <br />
             Brighter days
           </p>
           <h2 id="swirl-title">

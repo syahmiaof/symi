@@ -11,6 +11,7 @@
     "qa": "node scripts/qa.mjs",
     "qa:motion": "node scripts/motion-qa.mjs",
     "qa:text": "node scripts/text-qa.mjs",
+    "qa:mobile": "node scripts/mobile-journey-qa.mjs",
     "format": "prettier --write app components lib data scripts/qa.mjs *.ts *.mjs *.json *.md"
   },
   "dependencies": {

@@ -32,7 +32,8 @@ export function createFlavorJourney(root: HTMLElement) {
       id: "flavors-pin",
       trigger: scene,
       start: "top top",
-      end: () => `+=${Math.max(stride() * 3, innerHeight * 1.8)}`,
+      end: () =>
+        `+=${Math.max(stride() * 3, scene.clientHeight * (innerWidth < 1024 ? 3 : 1.8))}`,
       pin: true,
       anticipatePin: 1,
       scrub: 0.32,
