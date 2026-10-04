@@ -12,7 +12,11 @@ for (const engine of [chromium, webkit]) {
     window.__introSamples = [];
     const sample = () => {
       const cup = document.querySelector(".hero-cup");
-      if (cup && document.querySelector("[data-motion-ready]")) {
+      if (
+        cup &&
+        document.querySelector("[data-motion-ready]") &&
+        !document.querySelector("[data-welcoming]")
+      ) {
         window.__introSamples.push({
           opacity: +getComputedStyle(cup).opacity,
           transform: getComputedStyle(cup).transform,
@@ -26,6 +30,7 @@ for (const engine of [chromium, webkit]) {
     if (pass) await p.reload({ waitUntil: "domcontentloaded" });
     else await p.goto(base, { waitUntil: "domcontentloaded" });
     await p.locator("[data-motion-ready]").waitFor();
+    await p.locator(".welcome-screen[hidden]").waitFor({ state: "attached" });
     const states = [];
     for (const wait of [0, 350, 650, 1800]) {
       await p.waitForTimeout(wait);

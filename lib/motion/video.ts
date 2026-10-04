@@ -68,7 +68,7 @@ export function createVideoJourney(root: HTMLElement, pinned: boolean) {
       end: pinned ? () => `+=${scene.clientHeight * 3.2}` : "bottom 35%",
       pin: pinned,
       anticipatePin: pinned ? 1 : 0,
-      scrub: 0.65,
+      scrub: matchMedia("(pointer: coarse)").matches ? 0.22 : 0.4,
       invalidateOnRefresh: true,
     },
   });

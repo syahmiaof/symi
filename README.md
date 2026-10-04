@@ -38,6 +38,8 @@ npx playwright install chromium webkit
 npm run qa
 node scripts/motion-qa.mjs
 npm run qa:text
+npm run qa:mobile
+npm run qa:repair
 ```
 
 `QA_URL` overrides the target server; `QA_OUTPUT` overrides the evidence directory. Defaults: `http://localhost:3000` and `.work/visual-correction/final`.
@@ -46,7 +48,7 @@ The suite captures hero, peak Swirl, Flavors and Story at 1440×1080, 1440×900,
 
 ## Deployment
 
-Place the original explosion MP4 in `assets/source/`. Source videos are ignored by Git and Vercel; conversion, frame resolution, compression and preload strategy are handled when integrating the approved clip. Do not put a large source MP4 in `public`.
+Keep the original explosion MP4 outside `public`. Run `powershell -File scripts/prepare-video.ps1 -Source video1.mp4` (or supply a source under `assets/source/`) to generate the silent desktop/mobile MP4s and poster. Source videos are ignored by Git and Vercel; only the optimized derivatives in `public/videos/` ship.
 
 Private source: [syahmiaof/symi](https://github.com/syahmiaof/symi).
 
@@ -56,4 +58,4 @@ Vercel Git integration deploys `main`. Credentials and `.vercel` are excluded fr
 
 ## Limits
 
-Missing photographic layers were reconstructed from references, so individual pixels and some scene details differ. The explosion uses 30 separately masked photographic layers with a held reference keyframe, plus an assembled cup for the opening and closing poses. It is photographic compositing, rather than a 3D fluid simulation. Browser checks do not establish physical-device Safari performance.
+Missing photographic layers were reconstructed from references, so individual pixels and some scene details differ. The explosion scrubs the supplied rendered MP4 with HTML ingredient annotations. Phones select a smaller 768×432 independently seekable MP4; desktop uses 1280×720. This is rendered animation, not a live 3D fluid simulation. Browser checks and CPU throttling do not establish physical-device Safari performance.

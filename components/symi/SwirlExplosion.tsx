@@ -93,14 +93,20 @@ export default function SwirlExplosion() {
         <div className="swirl-video-stage">
           <video
             className="swirl-video"
-            src="/videos/symi-swirl.mp4"
             poster="/videos/symi-swirl-poster.webp"
             preload="metadata"
             muted
             playsInline
             disablePictureInPicture
             aria-label="Scroll to turn the SYMI kiwi cup and separate its yogurt, kiwi and granola layers."
-          />
+          >
+            <source
+              src="/videos/symi-swirl-mobile.mp4"
+              media="(max-width: 1023px)"
+              type="video/mp4"
+            />
+            <source src="/videos/symi-swirl.mp4" type="video/mp4" />
+          </video>
         </div>
         <div className="swirl-callouts">
           {callouts.map((c) => (

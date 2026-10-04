@@ -30,7 +30,11 @@ const copySelector = [
 ].join(",");
 
 /** Text retains its layout and accessible name; only its visual words move. */
-export function createTextJourney(root: HTMLElement, pinnedScenes: boolean) {
+export function createTextJourney(
+  root: HTMLElement,
+  pinnedScenes: boolean,
+  welcomeReady: Promise<void>,
+) {
   const targets = Array.from(
     root.querySelectorAll<HTMLElement>(copySelector),
   ).filter((el) => el.getClientRects().length && el.textContent?.trim());
@@ -241,6 +245,7 @@ export function createTextJourney(root: HTMLElement, pinnedScenes: boolean) {
     0,
   );
   const finishIntro = (event: Event) => {
+    if (root.hasAttribute("data-welcoming")) return;
     if (
       event instanceof KeyboardEvent &&
       !["ArrowDown", "PageDown", "End", " "].includes(event.key)
@@ -252,15 +257,18 @@ export function createTextJourney(root: HTMLElement, pinnedScenes: boolean) {
   window.addEventListener("wheel", finishIntro, { passive: true });
   window.addEventListener("touchmove", finishIntro, { passive: true });
   window.addEventListener("keydown", finishIntro);
-  Promise.race([
-    Promise.all([
-      document.fonts.ready,
-      root
-        .querySelector<HTMLImageElement>(".hero-cup")!
-        .decode()
-        .catch(() => undefined),
+  Promise.all([
+    welcomeReady,
+    Promise.race([
+      Promise.all([
+        document.fonts.ready,
+        root
+          .querySelector<HTMLImageElement>(".hero-cup")!
+          .decode()
+          .catch(() => undefined),
+      ]),
+      new Promise((resolve) => setTimeout(resolve, 1200)),
     ]),
-    new Promise((resolve) => setTimeout(resolve, 1200)),
   ]).then(() => {
     if (!alive) return;
     if (scrollY > 40 || location.hash) intro.progress(1);

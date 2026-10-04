@@ -68,7 +68,7 @@
   }
   .story-gallery .scenic-photo figcaption br { display: block; }
 }
-@media (max-width: 1023px) and (min-height: 600px) {
+@media (max-width: 1023px) {
   [data-pinned-scenes] .swirl-scene,
   [data-pinned-scenes] .flavor-scene {
     height: 100svh;

@@ -3,6 +3,8 @@ import localFont from "next/font/local";
 import "./globals.css";
 import "./reference.css";
 import "./mobile-motion.css";
+import "./welcome.css";
+import "./compact-motion.css";
 const display = localFont({
   src: [
     { path: "./fonts/bodoni-400-normal.woff2", weight: "400", style: "normal" },
