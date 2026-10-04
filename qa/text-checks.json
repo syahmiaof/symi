@@ -1,0 +1,60 @@
+[
+  {
+    "engine": "chromium",
+    "width": 1440,
+    "height": 900,
+    "checks": [
+      "Initial headline and CTA remain fully visible",
+      "Every rendered heading and paragraph participates in text motion",
+      "Headline scrubs through hidden, staggered entry, readable hold, exit and identical reverse",
+      "Typewriter labels reveal individual characters while preserving full accessible text",
+      "Footer copy remains readable at the document end",
+      "Reduced motion restores original DOM; reenabling does not duplicate split words"
+    ],
+    "errors": []
+  },
+  {
+    "engine": "chromium",
+    "width": 390,
+    "height": 844,
+    "checks": [
+      "Initial headline and CTA remain fully visible",
+      "Every rendered heading and paragraph participates in text motion",
+      "Headline scrubs through hidden, staggered entry, readable hold, exit and identical reverse",
+      "Typewriter labels reveal individual characters while preserving full accessible text",
+      "Mobile line breaks and repeated animated menu open/close preserve layout and focus",
+      "Footer copy remains readable at the document end",
+      "Reduced motion restores original DOM; reenabling does not duplicate split words"
+    ],
+    "errors": []
+  },
+  {
+    "engine": "webkit",
+    "width": 1440,
+    "height": 900,
+    "checks": [
+      "Initial headline and CTA remain fully visible",
+      "Every rendered heading and paragraph participates in text motion",
+      "Headline scrubs through hidden, staggered entry, readable hold, exit and identical reverse",
+      "Typewriter labels reveal individual characters while preserving full accessible text",
+      "Footer copy remains readable at the document end",
+      "Reduced motion restores original DOM; reenabling does not duplicate split words"
+    ],
+    "errors": []
+  },
+  {
+    "engine": "webkit",
+    "width": 390,
+    "height": 844,
+    "checks": [
+      "Initial headline and CTA remain fully visible",
+      "Every rendered heading and paragraph participates in text motion",
+      "Headline scrubs through hidden, staggered entry, readable hold, exit and identical reverse",
+      "Typewriter labels reveal individual characters while preserving full accessible text",
+      "Mobile line breaks and repeated animated menu open/close preserve layout and focus",
+      "Footer copy remains readable at the document end",
+      "Reduced motion restores original DOM; reenabling does not duplicate split words"
+    ],
+    "errors": []
+  }
+]

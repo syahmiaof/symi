@@ -2132,3 +2132,30 @@ figure,
     background-color 0.2s,
     color 0.2s;
 }
+
+/* Split words stay in normal text flow; readable copy never changes its dimensions. */
+.motion-word,
+.motion-char {
+  display: inline-block;
+  backface-visibility: hidden;
+}
+[data-text-motion="headline"] {
+  perspective: 900px;
+}
+.motion-sr-only {
+  position: absolute !important;
+  width: 1px !important;
+  height: 1px !important;
+  padding: 0 !important;
+  margin: -1px !important;
+  overflow: hidden !important;
+  clip-path: inset(50%) !important;
+  white-space: nowrap !important;
+  border: 0 !important;
+}
+[data-text-motion]:focus-visible,
+[data-text-motion]:focus-visible .motion-word,
+[data-text-motion]:focus-visible .motion-char {
+  opacity: 1 !important;
+  transform: none !important;
+}

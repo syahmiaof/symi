@@ -77,6 +77,8 @@ All typography, buttons, navigation, benefit icons, annotations and layout are H
 
 ## Motion and accessibility
 
+All rendered headings and paragraphs participate in reversible scroll choreography. Headlines rise by word with a slight perspective tilt; body copy has smaller word offsets; short eyebrow labels reveal characters in order. Hold fully legible text through the middle of each scene. Pinned text follows scene bounds, flavor captions follow the horizontal rail, and footer text must finish revealing before the document ends. Navigation has a staggered introduction and the mobile dialog has entrance/exit choreography. Reduced motion restores unsplit, static content. Custom `symi-text` split wrappers prevent legacy span selectors from changing layout.
+
 GSAP/useGSAP owns scoped cleanup; Lenis is desktop only. Pin Swirl and Flavor scenes only above 1024px, with no pins under reduced motion. Mobile uses natural document scroll. Hold the keyframe before reassembly. Keep native dialog focus restoration, anchor access, keyboard flavor controls, visible focus, semantic headings and image descriptions. Never conceal text permanently behind an intro animation.
 
 ## Verification

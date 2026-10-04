@@ -1,5 +1,6 @@
 "use client";
 import { useEffect, useRef, useState } from "react";
+import { gsap, useGSAP } from "@/lib/motion/gsap";
 import { Arrow, Wordmark } from "./Brand";
 
 const links = [
@@ -13,6 +14,41 @@ export default function Header() {
   const [open, setOpen] = useState(false);
   const dialog = useRef<HTMLDialogElement>(null);
   const toggle = useRef<HTMLButtonElement>(null);
+  const { contextSafe } = useGSAP(
+    () => {
+      if (!open || matchMedia("(prefers-reduced-motion: reduce)").matches)
+        return;
+      gsap.from(
+        dialog.current!.querySelectorAll(".menu-head, nav a, .menu-launch"),
+        {
+          y: 24,
+          opacity: 0,
+          duration: 0.65,
+          stagger: 0.07,
+          ease: "power3.out",
+        },
+      );
+    },
+    { scope: dialog, dependencies: [open], revertOnUpdate: true },
+  );
+  const closeMenu = () =>
+    contextSafe(() => {
+      if (matchMedia("(prefers-reduced-motion: reduce)").matches) {
+        setOpen(false);
+        return;
+      }
+      gsap.to(
+        dialog.current!.querySelectorAll(".menu-head, nav a, .menu-launch"),
+        {
+          y: -12,
+          opacity: 0,
+          duration: 0.2,
+          stagger: 0.02,
+          overwrite: true,
+          onComplete: () => setOpen(false),
+        },
+      );
+    })();
   useEffect(() => {
     if (!open) return;
     const el = dialog.current;
@@ -78,7 +114,10 @@ export default function Header() {
         ref={dialog}
         id="mobile-navigation"
         className="mobile-menu"
-        onCancel={() => setOpen(false)}
+        onCancel={(event) => {
+          event.preventDefault();
+          closeMenu();
+        }}
         aria-label="Navigation"
       >
         <div className="menu-head">
@@ -86,7 +125,7 @@ export default function Header() {
           <button
             className="menu-close"
             aria-label="Close navigation"
-            onClick={() => setOpen(false)}
+            onClick={closeMenu}
           >
             Close <span aria-hidden="true">×</span>
           </button>

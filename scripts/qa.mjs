@@ -135,6 +135,7 @@ for (const [engine, viewports] of [
       await page.locator(".menu-toggle").click();
       const opened = await page.locator("dialog").evaluate((e) => e.open);
       await page.keyboard.press("Escape");
+      await page.waitForFunction(() => !document.querySelector("dialog").open);
       result.menu = {
         opened,
         closed: await page.locator("dialog").evaluate((e) => !e.open),

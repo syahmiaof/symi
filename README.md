@@ -37,6 +37,7 @@ Read `DESIGN.md` before UI changes. The authority is the supplied PNGs, followed
 npx playwright install chromium webkit
 npm run qa
 node scripts/motion-qa.mjs
+npm run qa:text
 ```
 
 `QA_URL` overrides the target server; `QA_OUTPUT` overrides the evidence directory. Defaults: `http://localhost:3000` and `.work/visual-correction/final`.
@@ -44,6 +45,8 @@ node scripts/motion-qa.mjs
 The suite captures hero, peak Swirl, Flavors and Story at 1440×1080, 1440×900, 1280×800, 1024×768, 430×932, 390×844 and 375×812. WebKit adds desktop/mobile checks. It verifies overflow, browser errors, missing images, menu focus restoration, flavor navigation, Axe accessibility and reduced-motion pin removal. Visual comparisons are reviewed separately from automated checks; evidence is summarized in `qa/verification.md`.
 
 ## Deployment
+
+Place the original explosion MP4 in `assets/source/`. Source videos are ignored by Git and Vercel; conversion, frame resolution, compression and preload strategy are handled when integrating the approved clip. Do not put a large source MP4 in `public`.
 
 Private source: [syahmiaof/symi](https://github.com/syahmiaof/symi).
 

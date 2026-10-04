@@ -22,6 +22,12 @@ Chromium 1440×1080 and 390×844 run Axe WCAG 2 A/AA and 2.1 AA checks in all fo
 
 ## Visual review
 
+### Text choreography pass
+
+`npm run qa:text` exercises 26 additional assertions across Chromium/WebKit at 1440×900 and 390×844. It checks coverage of every rendered heading/paragraph, intermediate word positions and opacity, complete reading holds, exit, reverse playback, character reveals, mobile line breaks, repeated animated menu open/close, footer visibility and reduced-motion DOM restoration without duplicate splits. Evidence: `text-checks.json` and `.work/text-motion/qa`.
+
+Small copy uses a clipping reveal to preserve contrast while it moves. CTA text remains opaque. Typewriter labels keep a complete visually hidden text equivalent; normal word splits preserve native text semantics. Static navigation remains available while scroll-driven scene copy enters and exits.
+
 All five supplied PNGs were compared with browser captures. Desktop hero, explosion peak, horizontal flavors and story retain their reference layouts; mobile retains its portrait hero, cream flavor showcase and staff/story sequence. Intermediate explosion frames were inspected and repaired for transparency and cut seams. WebKit screenshots were checked separately for font rendering.
 
 Local screenshots and side-by-side comparisons are in `.work/visual-correction/final`; animation frames are in `.work/motion-audit/regression`. These artifacts and original mockups are excluded from deployment.

@@ -1,6 +1,7 @@
 "use client";
 import { useRef, type ReactNode } from "react";
 import Lenis from "lenis";
+import { createTextJourney } from "@/lib/motion/text";
 import { gsap, ScrollTrigger, useGSAP } from "@/lib/motion/gsap";
 import {
   createExplosion,
@@ -74,6 +75,7 @@ export default function MotionProvider({ children }: { children: ReactNode }) {
         },
         (context) => {
           const { desktop, reduce } = context.conditions!;
+          let cleanupText: (() => void) | undefined;
           const tick = (time: number) => lenis?.raf(time * 1000);
           if (desktop && !reduce) {
             lenis = new Lenis({
@@ -87,13 +89,6 @@ export default function MotionProvider({ children }: { children: ReactNode }) {
             gsap.ticker.lagSmoothing(0);
           }
           if (!reduce) {
-            gsap.from(q(".hero h1 .line-mask>span"), {
-              y: 18,
-              opacity: 0,
-              duration: 0.65,
-              stagger: 0.07,
-              ease: "power2.out",
-            });
             gsap.from(q(".hero-cup"), {
               y: 16,
               opacity: 0,
@@ -124,6 +119,7 @@ export default function MotionProvider({ children }: { children: ReactNode }) {
             }
             createExplosion(el, Boolean(desktop));
             if (desktop) createFlavorJourney(el);
+            cleanupText = createTextJourney(el, Boolean(desktop));
           }
           const track = el.querySelector<HTMLElement>(".flavor-track");
           const nativeProgress = () => {
@@ -162,6 +158,7 @@ export default function MotionProvider({ children }: { children: ReactNode }) {
           track?.addEventListener("scroll", nativeProgress, { passive: true });
           track?.addEventListener("keydown", keyboard);
           return () => {
+            cleanupText?.();
             window.removeEventListener("wheel", clearTarget);
             track?.removeEventListener("touchstart", clearTarget);
             track?.removeEventListener("scroll", nativeProgress);
