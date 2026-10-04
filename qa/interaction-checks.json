@@ -1,34 +1,43 @@
 [
   {
     "engine": "chromium",
-    "width": 1440,
-    "height": 900,
+    "width": 1900,
+    "height": 860,
     "checks": [
-      "Explosion entry, separation, held peak and reassembly have distinct transforms",
-      "Reverse scrolling reproduces the same cup coordinates",
-      "All four desktop flavors advance one full panel",
-      "Rapid arrow input reaches requested final flavor",
-      "Wheel input over the horizontal rail does not trap scrolling",
-      "Navigation interrupts scrub and lands on Story correctly",
-      "Browser back restores section navigation",
-      "Breakpoint changes remove and rebuild exactly two desktop pins",
-      "Reduced motion removes pins and preserves flavor controls"
+      "Hero readable after intro; cup keeps intrinsic proportions",
+      "Text hidden before 70% threshold, gradual entrance, readable hold, exit and reverse",
+      "MP4 seeks forward and backward to matching frames",
+      "seek 0: 0.000s",
+      "seek 1: 3.125s",
+      "seek 2: 5.667s",
+      "seek 3: 6.917s",
+      "seek 4: 9.708s",
+      "seek 5: 3.125s",
+      "Flavor heading clears navbar",
+      "Flavor next/previous controls and natural cup proportions",
+      "Slow/fast/reverse wheel scroll without document overflow",
+      "Reduced motion removes text splitting and pins"
     ],
     "errors": []
   },
   {
-    "engine": "webkit",
-    "width": 1440,
-    "height": 900,
+    "engine": "chromium",
+    "width": 1536,
+    "height": 688,
     "checks": [
-      "Explosion entry, separation, held peak and reassembly have distinct transforms",
-      "Reverse scrolling reproduces the same cup coordinates",
-      "All four desktop flavors advance one full panel",
-      "Rapid arrow input reaches requested final flavor",
-      "Navigation interrupts scrub and lands on Story correctly",
-      "Browser back restores section navigation",
-      "Breakpoint changes remove and rebuild exactly two desktop pins",
-      "Reduced motion removes pins and preserves flavor controls"
+      "Hero readable after intro; cup keeps intrinsic proportions",
+      "Text hidden before 70% threshold, gradual entrance, readable hold, exit and reverse",
+      "MP4 seeks forward and backward to matching frames",
+      "seek 0: 0.000s",
+      "seek 1: 3.125s",
+      "seek 2: 5.667s",
+      "seek 3: 6.917s",
+      "seek 4: 9.708s",
+      "seek 5: 3.125s",
+      "Flavor heading clears navbar",
+      "Flavor next/previous controls and natural cup proportions",
+      "Slow/fast/reverse wheel scroll without document overflow",
+      "Reduced motion removes text splitting and pins"
     ],
     "errors": []
   },
@@ -37,12 +46,40 @@
     "width": 390,
     "height": 844,
     "checks": [
-      "Touch layout uses natural scrolling without pins",
-      "Mobile native carousel advances and reverses through every flavor",
-      "Keyboard right arrow controls native carousel",
-      "Mobile menu closes and scrolls to Story without focus jump",
-      "Header remains readable on cream sections",
-      "Reduced motion removes pins and preserves flavor controls"
+      "Hero readable after intro; cup keeps intrinsic proportions",
+      "Text hidden before 70% threshold, gradual entrance, readable hold, exit and reverse",
+      "MP4 seeks forward and backward to matching frames",
+      "seek 0: 0.000s",
+      "seek 1: 3.125s",
+      "seek 2: 5.667s",
+      "seek 3: 6.917s",
+      "seek 4: 9.708s",
+      "seek 5: 3.125s",
+      "Flavor next/previous controls and natural cup proportions",
+      "Repeated menu opening, animated closing and focus restoration",
+      "Slow/fast/reverse wheel scroll without document overflow",
+      "Reduced motion removes text splitting and pins"
+    ],
+    "errors": []
+  },
+  {
+    "engine": "webkit",
+    "width": 1440,
+    "height": 900,
+    "checks": [
+      "Hero readable after intro; cup keeps intrinsic proportions",
+      "Text hidden before 70% threshold, gradual entrance, readable hold, exit and reverse",
+      "MP4 seeks forward and backward to matching frames",
+      "seek 0: 0.016s",
+      "seek 1: 3.134s",
+      "seek 2: 5.634s",
+      "seek 3: 6.922s",
+      "seek 4: 9.721s",
+      "seek 5: 3.135s",
+      "Flavor heading clears navbar",
+      "Flavor next/previous controls and natural cup proportions",
+      "Slow/fast/reverse wheel scroll without document overflow",
+      "Reduced motion removes text splitting and pins"
     ],
     "errors": []
   },
@@ -51,12 +88,19 @@
     "width": 390,
     "height": 844,
     "checks": [
-      "Touch layout uses natural scrolling without pins",
-      "Mobile native carousel advances and reverses through every flavor",
-      "Keyboard right arrow controls native carousel",
-      "Mobile menu closes and scrolls to Story without focus jump",
-      "Header remains readable on cream sections",
-      "Reduced motion removes pins and preserves flavor controls"
+      "Hero readable after intro; cup keeps intrinsic proportions",
+      "Text hidden before 70% threshold, gradual entrance, readable hold, exit and reverse",
+      "MP4 seeks forward and backward to matching frames",
+      "seek 0: 0.011s",
+      "seek 1: 3.139s",
+      "seek 2: 5.687s",
+      "seek 3: 6.879s",
+      "seek 4: 9.720s",
+      "seek 5: 3.136s",
+      "Flavor next/previous controls and natural cup proportions",
+      "Repeated menu opening, animated closing and focus restoration",
+      "Native slow/fast/reverse scrolling without document overflow",
+      "Reduced motion removes text splitting and pins"
     ],
     "errors": []
   }

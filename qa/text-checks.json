@@ -1,60 +1,94 @@
 [
   {
     "engine": "chromium",
-    "width": 1440,
-    "height": 900,
-    "checks": [
-      "Initial headline and CTA remain fully visible",
-      "Every rendered heading and paragraph participates in text motion",
-      "Headline scrubs through hidden, staggered entry, readable hold, exit and identical reverse",
-      "Typewriter labels reveal individual characters while preserving full accessible text",
-      "Footer copy remains readable at the document end",
-      "Reduced motion restores original DOM; reenabling does not duplicate split words"
+    "pass": 0,
+    "states": [
+      {
+        "opacity": 0.3387,
+        "transform": "matrix(0.944011, -0.0764309, 0.0764309, 0.944011, 0, 42.982)"
+      },
+      {
+        "opacity": 0.9366,
+        "transform": "matrix(0.99487, -0.00770445, 0.00770445, 0.99487, 0, 4.1202)"
+      },
+      {
+        "opacity": 1,
+        "transform": "matrix(1, 0, 0, 1, 0, 0)"
+      },
+      {
+        "opacity": 1,
+        "transform": "matrix(1, 0, 0, 1, 0, 0)"
+      }
     ],
-    "errors": []
+    "sampledFrames": 200
   },
   {
     "engine": "chromium",
-    "width": 390,
-    "height": 844,
-    "checks": [
-      "Initial headline and CTA remain fully visible",
-      "Every rendered heading and paragraph participates in text motion",
-      "Headline scrubs through hidden, staggered entry, readable hold, exit and identical reverse",
-      "Typewriter labels reveal individual characters while preserving full accessible text",
-      "Mobile line breaks and repeated animated menu open/close preserve layout and focus",
-      "Footer copy remains readable at the document end",
-      "Reduced motion restores original DOM; reenabling does not duplicate split words"
+    "pass": 1,
+    "states": [
+      {
+        "opacity": 0.3089,
+        "transform": "matrix(0.941335, -0.0796682, 0.0796682, 0.941335, 0, 44.9205)"
+      },
+      {
+        "opacity": 0.9853,
+        "transform": "matrix(0.998798, -0.00179379, 0.00179379, 0.998798, 0, 0.9559)"
+      },
+      {
+        "opacity": 1,
+        "transform": "matrix(1, 0, 0, 1, 0, 0)"
+      },
+      {
+        "opacity": 1,
+        "transform": "matrix(1, 0, 0, 1, 0, 0)"
+      }
     ],
-    "errors": []
+    "sampledFrames": 200
   },
   {
     "engine": "webkit",
-    "width": 1440,
-    "height": 900,
-    "checks": [
-      "Initial headline and CTA remain fully visible",
-      "Every rendered heading and paragraph participates in text motion",
-      "Headline scrubs through hidden, staggered entry, readable hold, exit and identical reverse",
-      "Typewriter labels reveal individual characters while preserving full accessible text",
-      "Footer copy remains readable at the document end",
-      "Reduced motion restores original DOM; reenabling does not duplicate split words"
+    "pass": 0,
+    "states": [
+      {
+        "opacity": 0,
+        "transform": "matrix(0.913142, -0.11212, 0.11212, 0.913142, 0, 65)"
+      },
+      {
+        "opacity": 0.7749,
+        "transform": "matrix(0.981629, -0.027006, 0.027006, 0.981629, 0, 14.6334)"
+      },
+      {
+        "opacity": 0.9999,
+        "transform": "matrix(1, -0.000007, 0.000007, 1, 0, 0.0034)"
+      },
+      {
+        "opacity": 1,
+        "transform": "matrix(1, 0, 0, 1, 0, 0)"
+      }
     ],
-    "errors": []
+    "sampledFrames": 137
   },
   {
     "engine": "webkit",
-    "width": 390,
-    "height": 844,
-    "checks": [
-      "Initial headline and CTA remain fully visible",
-      "Every rendered heading and paragraph participates in text motion",
-      "Headline scrubs through hidden, staggered entry, readable hold, exit and identical reverse",
-      "Typewriter labels reveal individual characters while preserving full accessible text",
-      "Mobile line breaks and repeated animated menu open/close preserve layout and focus",
-      "Footer copy remains readable at the document end",
-      "Reduced motion restores original DOM; reenabling does not duplicate split words"
+    "pass": 1,
+    "states": [
+      {
+        "opacity": 0,
+        "transform": "matrix(0.913142, -0.11212, 0.11212, 0.913142, 0, 65)"
+      },
+      {
+        "opacity": 0.8936,
+        "transform": "matrix(0.991416, -0.012892, 0.012892, 0.991416, 0, 6.9182)"
+      },
+      {
+        "opacity": 0.9991,
+        "transform": "matrix(0.9999, -0.000106, 0.000106, 0.9999, 0, 0.0566)"
+      },
+      {
+        "opacity": 1,
+        "transform": "matrix(1, 0, 0, 1, 0, 0)"
+      }
     ],
-    "errors": []
+    "sampledFrames": 84
   }
 ]

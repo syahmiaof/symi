@@ -37,6 +37,8 @@ export function createTextJourney(root: HTMLElement, desktop: boolean) {
   const track = root.querySelector<HTMLElement>(".flavor-track")!;
   const flavorAnimation = ScrollTrigger.getById("flavors-pin")?.animation;
 
+  const intro = gsap.timeline({ paused: true });
+  let alive = true;
   targets.forEach((element, index) => {
     const heading = /^H[123]$/.test(element.tagName);
     const label = element.matches(".eyebrow, .launch-date, .callout strong");
@@ -50,7 +52,7 @@ export function createTextJourney(root: HTMLElement, desktop: boolean) {
       : undefined;
     const top = () => element.getBoundingClientRect().top + window.scrollY;
     const height = () => element.offsetHeight;
-    const visibleAtLoad = top() < innerHeight * 0.8 && window.scrollY < 10;
+    const hero = Boolean(element.closest(".hero"));
     const readableLabel = element.innerText;
     element.dataset.textMotion = label ? "type" : heading ? "headline" : "copy";
 
@@ -95,107 +97,179 @@ export function createTextJourney(root: HTMLElement, desktop: boolean) {
       accessibleCopy.textContent = readableLabel;
       element.append(accessibleCopy);
     }
-    const concealedOpacity = heading || label ? 0 : 1;
-    const curtain = !heading && !label && !interactive;
-    const duration = label ? 0.04 : 0.65;
-    const stagger = { amount: label ? 0.75 : heading ? 0.3 : 0.22 };
-    const tl = gsap.timeline({ paused: true });
-    tl.set(units, { opacity: concealedOpacity });
-    tl.fromTo(
+    const enter = gsap.timeline({ paused: true });
+    enter.fromTo(
       units,
       {
-        opacity: concealedOpacity,
-        clipPath: curtain ? "inset(100% 0% 0% 0%)" : "none",
-        yPercent: label ? 0 : heading ? 65 : 30,
-        rotationX: heading ? -18 : 0,
+        opacity: 0,
+        yPercent: label ? 0 : heading ? 55 : 22,
+        rotationX: heading ? -12 : 0,
         transformOrigin: "50% 100%",
       },
       {
         opacity: 1,
-        clipPath: curtain ? "inset(0% 0% 0% 0%)" : "none",
         yPercent: 0,
         rotationX: 0,
-        duration,
-        stagger,
-        ease: label ? "steps(1)" : "power3.out",
+        duration: label ? 0.035 : heading ? 1.25 : 1.1,
+        stagger: { amount: label ? 0.9 : heading ? 0.22 : 0.15 },
+        ease: label ? "steps(1)" : "power2.out",
       },
-      0.001,
-    )
-      .to({}, { duration: 2.5 })
-      .to(units, {
-        opacity: concealedOpacity,
-        clipPath: curtain ? "inset(0% 0% 100% 0%)" : "none",
-        yPercent: label ? 0 : heading ? -45 : -20,
-        rotationX: heading ? 12 : 0,
-        duration: 0.65,
-        stagger: { amount: 0.15 },
-        ease: label ? "steps(1)" : "power2.in",
-      });
-
-    if (panel) {
-      // Horizontal entry/exit follows the same timeline as the product rail.
-      ScrollTrigger.create({
-        id: `text-${index}`,
-        trigger: panel,
-        animation: tl,
-        ...(desktop && flavorAnimation
-          ? { containerAnimation: flavorAnimation }
-          : { scroller: track, horizontal: true }),
-        start: "left 105%",
-        end: "right -15%",
-        scrub: 0.45,
-      });
+    );
+    if (hero) {
+      const delay = element.matches("h1")
+        ? 0.35
+        : element.matches(".eyebrow")
+          ? 0.15
+          : element.matches(".hero-subtitle")
+            ? 0.75
+            : element.matches(".hero-description")
+              ? 0.95
+              : 1.15;
+      intro.add(enter.play(), delay);
     } else {
+      let inSection = false;
+      let inPanel = !panel;
+      const sync = () => {
+        if (inSection && inPanel) enter.play();
+        else enter.reverse();
+      };
+      const section = panel
+        ? root.querySelector<HTMLElement>(".flavor-scene")!
+        : element;
       ScrollTrigger.create({
         id: `text-${index}`,
-        trigger: element,
-        animation: tl,
+        trigger: section,
         start: () =>
           pin
-            ? pin.start - innerHeight * 0.85
+            ? pin.start - innerHeight * 0.25
             : Math.min(
-                top() - innerHeight * 0.96,
-                ScrollTrigger.maxScroll(window) - innerHeight * 0.4,
+                section.getBoundingClientRect().top +
+                  scrollY -
+                  innerHeight * 0.7,
+                ScrollTrigger.maxScroll(window) - innerHeight * 0.3,
               ),
         end: () =>
           pin
-            ? pin.end + innerHeight * 0.8
-            : Math.min(
-                top() + height() + innerHeight * 0.16,
-                ScrollTrigger.maxScroll(window) + innerHeight * 0.6,
-              ),
-        scrub: 0.45,
+            ? pin.end + innerHeight * 0.5
+            : top() + height() + innerHeight * 0.2,
+        onToggle: (self) => {
+          inSection = self.isActive;
+          sync();
+        },
+        onRefresh: (self) => {
+          inSection = self.isActive;
+          sync();
+        },
       });
+      if (panel) {
+        ScrollTrigger.create({
+          trigger: panel,
+          ...(desktop && flavorAnimation
+            ? { containerAnimation: flavorAnimation }
+            : { scroller: track, horizontal: true }),
+          start: "left 94%",
+          end: "right 6%",
+          onToggle: (self) => {
+            inPanel = self.isActive;
+            sync();
+          },
+          onRefresh: (self) => {
+            inPanel = self.isActive;
+            sync();
+          },
+        });
+      }
     }
-    // A separate parent reveal introduces the opening frame without fighting scrubbed words.
-    if (
-      visibleAtLoad &&
-      !interactive &&
-      element.closest(".hero-copy") &&
-      !element.closest(".benefits")
-    )
-      gsap.from(element, {
-        opacity: 0,
-        y: 12,
-        duration: 1.05,
-        delay: Math.min(index * 0.075, 0.45),
-        ease: "power2.out",
-      });
+    // Exit has a separate parent transform, leaving the word reveal uninterrupted.
+    // Footer content stays legible at the document boundary.
+    if (!panel && !element.closest(".final-brand, .site-footer")) {
+      gsap.fromTo(
+        element,
+        { y: 0, opacity: 1 },
+        {
+          y: -18,
+          opacity: 0,
+          immediateRender: false,
+          ease: "none",
+          scrollTrigger: {
+            id: `text-exit-${index}`,
+            trigger: element,
+            start: () =>
+              pin ? pin.end - innerHeight * 0.12 : top() + height() - 130,
+            end: () =>
+              pin ? pin.end + innerHeight * 0.28 : top() + height() - 30,
+            scrub: 0.65,
+          },
+        },
+      );
+    }
   });
-
-  gsap.from(
+  intro.fromTo(
+    root.querySelector(".hero-cup"),
+    { opacity: 0, y: 65, rotation: -7, scale: 0.92 },
+    {
+      opacity: 1,
+      y: 0,
+      rotation: 0,
+      scale: 1,
+      duration: 1.7,
+      ease: "power3.out",
+    },
+    0.2,
+  );
+  intro.fromTo(
+    root.querySelector(".hero-backdrop"),
+    { scale: 1.045 },
+    { scale: 1, duration: 2.3, ease: "power2.out" },
+    0,
+  );
+  intro.fromTo(
+    root.querySelectorAll(
+      ".hero > .brand-stamp, .hero .benefits svg, .hero-bottom",
+    ),
+    { opacity: 0, y: 12 },
+    { opacity: 1, y: 0, duration: 0.9, stagger: 0.04, ease: "power2.out" },
+    1.15,
+  );
+  intro.fromTo(
     root.querySelectorAll(
       ".site-header .wordmark, .desktop-nav a, .launch-link",
     ),
-    {
-      opacity: 0,
-      y: -10,
-      stagger: 0.065,
-      duration: 0.85,
-      ease: "power2.out",
-    },
+    { opacity: 0, y: -12 },
+    { opacity: 1, y: 0, stagger: 0.045, duration: 0.8, ease: "power2.out" },
+    0,
   );
+  const finishIntro = (event: Event) => {
+    if (
+      event instanceof KeyboardEvent &&
+      !["ArrowDown", "PageDown", "End", " "].includes(event.key)
+    )
+      return;
+    intro.progress(1);
+  };
+  // Pin refresh may briefly change scrollY. Only user input interrupts the intro.
+  window.addEventListener("wheel", finishIntro, { passive: true });
+  window.addEventListener("touchmove", finishIntro, { passive: true });
+  window.addEventListener("keydown", finishIntro);
+  Promise.race([
+    Promise.all([
+      document.fonts.ready,
+      root
+        .querySelector<HTMLImageElement>(".hero-cup")!
+        .decode()
+        .catch(() => undefined),
+    ]),
+    new Promise((resolve) => setTimeout(resolve, 1200)),
+  ]).then(() => {
+    if (!alive) return;
+    if (scrollY > 40 || location.hash) intro.progress(1);
+    else intro.play();
+  });
   return () => {
+    alive = false;
+    window.removeEventListener("wheel", finishIntro);
+    window.removeEventListener("touchmove", finishIntro);
+    window.removeEventListener("keydown", finishIntro);
     targets.forEach((element) => delete element.dataset.textMotion);
   };
 }

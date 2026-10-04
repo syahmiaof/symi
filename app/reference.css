@@ -2159,3 +2159,401 @@ figure,
   opacity: 1 !important;
   transform: none !important;
 }
+
+/* Viewport-aware composition: preserve the PNG proportions on wide, short screens. */
+html {
+  overflow-x: clip;
+}
+.motion-shell,
+main {
+  min-width: 0;
+  max-width: 100%;
+}
+.site-header,
+.site-header.is-scrolled,
+.site-header.on-cream,
+.site-header.is-light {
+  top: 16px;
+  left: 50%;
+  right: auto;
+  transform: translateX(-50%);
+  width: calc(100% - 64px);
+  max-width: 1600px;
+  height: 80px;
+  padding: 0 30px;
+  background: rgb(6 38 59 / 94%);
+  color: var(--white);
+  border: 1px solid rgb(255 250 244 / 18%);
+  border-radius: 18px;
+  box-shadow: 0 8px 28px rgb(0 0 0 / 12%);
+  backdrop-filter: blur(16px);
+}
+.site-header .wordmark,
+.site-header.on-cream .wordmark {
+  font-size: 36px;
+  width: 92px;
+}
+.site-header .wordmark > svg,
+.site-header.on-cream .wordmark > svg {
+  width: 26px;
+  height: 21px;
+}
+.site-header .wordmark small,
+.site-header.on-cream .wordmark small {
+  font-size: 7px;
+}
+.desktop-nav {
+  gap: clamp(20px, 3vw, 54px);
+}
+.desktop-nav a[aria-current="location"] {
+  border-bottom-color: currentColor;
+}
+.hero-cup,
+.flavor-product img {
+  object-fit: contain;
+}
+.flavor-product img {
+  object-position: center bottom;
+}
+.swirl-video-stage {
+  position: absolute;
+  left: 29%;
+  right: 6%;
+  top: 114px;
+  bottom: 90px;
+  z-index: 1;
+  mask-image: linear-gradient(
+    to right,
+    transparent,
+    #000 12%,
+    #000 90%,
+    transparent
+  );
+}
+.swirl-video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  mask-image: linear-gradient(transparent, #000 5%, #000 94%, transparent);
+}
+.swirl-scene {
+  background: #0b151c;
+}
+.swirl-scene > .scene-backdrop {
+  opacity: 0.12;
+}
+.swirl-benefits {
+  color: var(--white);
+}
+.swirl-callouts {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+.swirl-callouts .callout {
+  width: 128px;
+}
+.swirl-callouts .callout > svg {
+  width: 30px;
+  height: 30px;
+  margin-bottom: 8px;
+}
+.swirl-callouts .callout-line {
+  display: none;
+}
+.swirl-callouts .callout strong {
+  font-size: 9px;
+}
+.swirl-callouts .callout p {
+  font-size: 12px;
+}
+.swirl-callouts .callout-yogurt {
+  left: 33%;
+  top: 22%;
+}
+.swirl-callouts .callout-granola {
+  left: 33%;
+  top: 68%;
+}
+.swirl-callouts .callout-kiwi {
+  left: 82%;
+  top: 22%;
+}
+.swirl-callouts .callout-sauce {
+  left: 82%;
+  top: 68%;
+}
+@media (min-width: 768px) {
+  .hero {
+    height: min(55.66vw, 100svh);
+    min-height: 680px;
+  }
+  .hero-copy {
+    top: max(132px, 17.5%);
+  }
+  .hero h1 {
+    font-size: min(7vw, 10.4svh);
+  }
+  .hero .eyebrow {
+    margin-bottom: min(1.5vw, 2svh);
+  }
+  .hero-subtitle {
+    font-size: min(2.7vw, 4.2svh);
+  }
+  .hero-description {
+    font-size: clamp(14px, 1.04vw, 18px);
+  }
+  .hero .benefits {
+    margin-top: min(3.2vw, 3.5svh);
+  }
+  .hero-product {
+    top: 18% !important;
+    left: 47% !important;
+    width: 32% !important;
+    height: 73% !important;
+  }
+  .hero-flavor-note {
+    top: 19%;
+    left: 73.4%;
+  }
+  .hero-flavor-note em {
+    font-size: min(4vw, 6svh);
+  }
+  .hero > .brand-stamp {
+    left: 80%;
+    width: min(8.1vw, 13svh);
+    height: min(8.1vw, 13svh);
+  }
+  .swirl-scene,
+  .flavor-scene {
+    min-height: 680px;
+    max-height: none;
+  }
+  .swirl-copy {
+    top: 132px;
+    left: 7%;
+    width: 25%;
+  }
+  .swirl-copy h2 {
+    font-size: clamp(62px, min(6.6vw, 9.5svh), 110px);
+  }
+  .swirl-copy .eyebrow {
+    margin-bottom: 18px;
+  }
+  .swirl-copy .serif-subtitle {
+    font-size: clamp(23px, min(2.15vw, 3.6svh), 38px);
+  }
+  .swirl-copy .body-copy {
+    font-size: clamp(13px, 1vw, 17px);
+    margin: 16px 0 20px;
+    max-width: 350px;
+  }
+  .swirl-benefits {
+    bottom: 22px;
+  }
+  .swirl-benefits .benefits svg {
+    width: 30px;
+    height: 30px;
+  }
+  .swirl-benefits .benefits li {
+    font-size: 8px;
+  }
+  .scene-progress {
+    top: 36%;
+    gap: 26px;
+  }
+  .flavor-scene {
+    --flavor-heading-height: clamp(260px, 33svh, 340px);
+    --flavor-rail-height: calc(100% - var(--flavor-heading-height) - 74px);
+  }
+  .flavor-heading {
+    height: var(--flavor-heading-height);
+    padding: 118px 7% 22px;
+    gap: 3%;
+    align-items: center;
+  }
+  .flavor-heading h2 {
+    font-size: clamp(43px, min(5.7vw, 6.4svh), 76px);
+  }
+  .flavor-subtitle {
+    font-size: clamp(24px, min(2.4vw, 3.6svh), 40px);
+    margin-top: 12px;
+  }
+  .flavor-intro {
+    margin-left: clamp(24px, 5vw, 100px);
+    max-width: 320px;
+    min-width: 200px;
+    align-self: center;
+  }
+  .flavor-intro > p {
+    font-size: clamp(12px, 1vw, 15px);
+  }
+  .flavor-intro > a {
+    margin-top: 10px;
+  }
+  .flavor-track {
+    height: var(--flavor-rail-height);
+    margin-left: 4vw;
+    gap: 20px;
+  }
+  .flavor-panel {
+    width: min(
+      28.3vw,
+      calc((100svh - var(--flavor-heading-height) - 74px) * 0.8)
+    );
+    min-width: 260px;
+    border-radius: 110px 110px 0 0;
+  }
+  .flavor-panel:first-child {
+    border-top-left-radius: 110px;
+  }
+  .flavor-panel-copy,
+  .flavor-panel:first-child .flavor-panel-copy {
+    left: 11%;
+    top: 5%;
+  }
+  .flavor-number {
+    font-size: 16px;
+    margin-bottom: 14px;
+  }
+  .flavor-panel h3 {
+    font-size: clamp(36px, min(3.45vw, 5.5svh), 62px);
+  }
+  .flavor-notes {
+    font-size: 8px;
+    letter-spacing: 0.14em;
+    margin: 14px 0;
+  }
+  .flavor-panel-copy .outline-arrow {
+    width: 36px;
+    height: 36px;
+  }
+  .flavor-product,
+  .flavor-berry .flavor-product,
+  .flavor-choco .flavor-product {
+    left: 13%;
+    width: 84%;
+    height: 64%;
+    bottom: 4%;
+  }
+  .flavor-environment {
+    object-fit: cover;
+  }
+  .flavor-bottom {
+    bottom: 12px;
+  }
+  .flavor-controls button {
+    width: 44px;
+    height: 44px;
+  }
+  .story-section {
+    padding-top: 112px;
+  }
+}
+@media (min-width: 768px) and (max-width: 1100px) {
+  .site-header {
+    padding: 0 20px;
+  }
+  .desktop-nav {
+    gap: 20px;
+  }
+  .flavor-heading {
+    padding-left: 5%;
+    padding-right: 5%;
+    gap: 20px;
+  }
+  .flavor-heading > .eyebrow {
+    display: none;
+  }
+  .flavor-intro {
+    max-width: 245px;
+    margin-left: 24px;
+    flex: 0 1 245px;
+  }
+  .swirl-callouts {
+    display: none;
+  }
+}
+@media (max-width: 767px) {
+  .site-header,
+  .site-header.is-scrolled,
+  .site-header.on-cream,
+  .site-header.is-light {
+    top: 10px;
+    width: calc(100% - 28px);
+    height: 64px;
+    padding: 0 18px;
+    border-radius: 14px;
+  }
+  .site-header .wordmark,
+  .site-header.on-cream .wordmark {
+    font-size: 30px;
+    width: 78px;
+  }
+  .site-header .wordmark > svg {
+    width: 21px;
+    height: 17px;
+  }
+  .site-header .wordmark small {
+    font-size: 6px;
+  }
+  .hero-copy {
+    top: 100px;
+  }
+  .hero-product {
+    left: 31% !important;
+    width: 76% !important;
+  }
+  .swirl-scene {
+    height: 1000px;
+    min-height: 1000px;
+  }
+  .swirl-copy {
+    top: 106px;
+    width: 80%;
+  }
+  .swirl-copy h2 {
+    font-size: 16vw;
+  }
+  .swirl-copy .body-copy {
+    width: 80%;
+  }
+  .swirl-video-stage {
+    left: 0;
+    right: 0;
+    top: 500px;
+    bottom: 90px;
+    mask-image: linear-gradient(transparent, #000 10%, #000 90%, transparent);
+  }
+  .swirl-video {
+    object-position: center;
+  }
+  .swirl-scene .scene-progress {
+    display: none;
+  }
+  .flavor-track {
+    max-width: 100%;
+  }
+  .flavor-product img {
+    object-fit: contain;
+  }
+  .flavor-product {
+    height: 73%;
+    bottom: 23%;
+  }
+}
+/* SSR paint is concealed briefly; CSS restores it if JavaScript never starts. */
+@media (prefers-reduced-motion: no-preference) {
+  .motion-shell:not([data-motion-ready]) .hero-copy,
+  .motion-shell:not([data-motion-ready]) .hero-cup,
+  .motion-shell:not([data-motion-ready]) .hero-flavor-note,
+  .motion-shell:not([data-motion-ready]) .hero > .brand-stamp {
+    opacity: 0;
+    animation: intro-fallback 0.3s 4s forwards;
+  }
+}
+@keyframes intro-fallback {
+  to {
+    opacity: 1;
+  }
+}

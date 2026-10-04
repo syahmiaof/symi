@@ -17,3 +17,5 @@ playwright-report/
 /symi_*.png
 /assets/source/*
 !/assets/source/.gitkeep
+/video1.mp4
+/video2.mp4

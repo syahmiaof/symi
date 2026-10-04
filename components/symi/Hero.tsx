@@ -11,7 +11,7 @@ export default function Hero() {
           alt=""
           fill
           sizes="100vw"
-          priority
+          loading="eager"
           quality={90}
         />
         <div className="hero-copy">
@@ -52,10 +52,11 @@ export default function Hero() {
             className="hero-cup"
             src="/images/symi/hero-kiwi.webp"
             alt="Kiwi frozen yogurt, green kiwi sauce and golden granola in a navy SYMI cup"
-            width={951}
-            height={1305}
+            width={1000}
+            height={1229}
             sizes="(max-width: 767px) 65vw, 27vw"
-            priority
+            loading="eager"
+            fetchPriority="high"
             quality={90}
           />
         </div>

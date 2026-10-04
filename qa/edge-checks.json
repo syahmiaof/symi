@@ -1,0 +1,9 @@
+[
+  "Navbar anchor reaches pinned flavor scene",
+  "Rapid next requests reach fourth flavor",
+  "Keyboard flavor navigation",
+  "Desktop/mobile breakpoint cleanly destroys and recreates pins",
+  "Footer remains readable at bottom",
+  "Reduced-motion toggle does not duplicate text wrappers",
+  "Scrolling during intro remains responsive"
+]

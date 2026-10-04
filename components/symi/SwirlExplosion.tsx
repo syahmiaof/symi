@@ -1,5 +1,4 @@
 import Image from "next/image";
-import layers from "@/data/explosion-layers.json";
 import { Arrow } from "./Brand";
 import Benefits, { IngredientIcon } from "./Benefits";
 const callouts = [
@@ -92,40 +91,17 @@ export default function SwirlExplosion() {
             </span>
           </a>
         </div>
-        <Image
-          className="swirl-assembled"
-          src="/images/symi/hero-kiwi.webp"
-          alt=""
-          width={1000}
-          height={1229}
-          sizes="30vw"
-        />
-        <div
-          className="swirl-stage"
-          role="img"
-          aria-label="Exploded SYMI kiwi yogurt: white yogurt swirl, kiwi sauce ribbons, fresh kiwi, golden granola and tilted navy cup"
-        >
-          {layers.map((layer) => (
-            <Image
-              key={layer.id}
-              className={`explosion-layer explosion-${layer.kind}`}
-              data-layer={layer.id}
-              data-kind={layer.kind}
-              data-center-x={layer.x + layer.width / 2}
-              data-center-y={layer.y + layer.height / 2}
-              src={`/images/symi/explosion/${layer.id}.webp`}
-              alt=""
-              width={layer.pixelWidth}
-              height={layer.pixelHeight}
-              unoptimized
-              style={{
-                left: `${layer.x}%`,
-                top: `${layer.y}%`,
-                width: `${layer.width}%`,
-                height: `${layer.height}%`,
-              }}
-            />
-          ))}
+        <div className="swirl-video-stage">
+          <video
+            className="swirl-video"
+            src="/videos/symi-swirl.mp4"
+            poster="/videos/symi-swirl-poster.webp"
+            preload="metadata"
+            muted
+            playsInline
+            disablePictureInPicture
+            aria-label="Scroll to turn the SYMI kiwi cup and separate its yogurt, kiwi and granola layers."
+          />
         </div>
         <div className="swirl-callouts">
           {callouts.map((c) => (

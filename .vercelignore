@@ -7,3 +7,5 @@ scripts
 *.jpg
 *.md
 assets/source
+/video1.mp4
+/video2.mp4

@@ -7,8 +7,8 @@ export const flavors = [
     notes: ["Bright", "Tangy", "Refreshing"],
     description: "A little tang. A little crunch. A whole lot of joy.",
     ingredient: "kiwi-slice",
-    width: 580,
-    height: 870,
+    width: 1000,
+    height: 1229,
   },
   {
     id: "mango",

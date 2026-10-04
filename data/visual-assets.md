@@ -60,3 +60,7 @@ Extract and reconstruct ONLY the photographic environment from inside the LEFT p
 Bodoni Moda normal 400/700/900 and italic 400 are static WOFF2 instances at optical size 11, prepared with `scripts/prepare_display_fonts.py`. Separate files avoid WebKit rendering variable font weights as thin regular text. Source: Google Fonts, SIL Open Font License included at `app/fonts/Bodoni-OFL.txt`.
 
 `data/explosion-layers.json` stores exact percentage coordinates and dimensions. The preparation script partitions every nonzero source-alpha pixel into one layer; it does not create new photographic content. The cup, yogurt, attached fruit and sauce share a stage transform to preserve their photographic seams. Disconnected kiwi, leaves, granola and droplets have individual trajectories. All 30 layers recompose the approved photograph at the held keyframe. Source originals remain untouched.
+
+## Scroll video, 4 October 2026
+
+The user supplied root `video1.mp4` and `video2.mp4`. `video1.mp4` was selected for its stable framing and assembled/exploded/reassembled journey. Source videos remain local and ignored. `public/videos/symi-swirl.mp4` is the silent H.264 1280x720, 24fps, all-intra derivative (faststart, CRF22); its poster is the first frame. Reproduce with `scripts/prepare-video.ps1`. The source animation's changing geometry and occasional lettering artifacts are part of the supplied AI footage; the site does not generate or correct them. HTML text, ingredient annotations and navigation remain separate from the video.

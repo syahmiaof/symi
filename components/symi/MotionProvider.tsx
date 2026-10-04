@@ -2,12 +2,9 @@
 import { useRef, type ReactNode } from "react";
 import Lenis from "lenis";
 import { createTextJourney } from "@/lib/motion/text";
+import { createVideoJourney } from "@/lib/motion/video";
 import { gsap, ScrollTrigger, useGSAP } from "@/lib/motion/gsap";
-import {
-  createExplosion,
-  createFlavorJourney,
-  scrollAnchor,
-} from "@/lib/motion/scenes";
+import { createFlavorJourney, scrollAnchor } from "@/lib/motion/scenes";
 export default function MotionProvider({ children }: { children: ReactNode }) {
   const root = useRef<HTMLDivElement>(null);
   useGSAP(
@@ -76,6 +73,7 @@ export default function MotionProvider({ children }: { children: ReactNode }) {
         (context) => {
           const { desktop, reduce } = context.conditions!;
           let cleanupText: (() => void) | undefined;
+          let cleanupVideo: (() => void) | undefined;
           const tick = (time: number) => lenis?.raf(time * 1000);
           if (desktop && !reduce) {
             lenis = new Lenis({
@@ -86,15 +84,8 @@ export default function MotionProvider({ children }: { children: ReactNode }) {
             });
             lenis.on("scroll", ScrollTrigger.update);
             gsap.ticker.add(tick);
-            gsap.ticker.lagSmoothing(0);
           }
           if (!reduce) {
-            gsap.from(q(".hero-cup"), {
-              y: 16,
-              opacity: 0,
-              duration: 0.8,
-              ease: "power2.out",
-            });
             if (desktop) {
               gsap.to(q(".hero-product"), {
                 y: 12,
@@ -117,10 +108,11 @@ export default function MotionProvider({ children }: { children: ReactNode }) {
                 },
               });
             }
-            createExplosion(el, Boolean(desktop));
+            cleanupVideo = createVideoJourney(el, Boolean(desktop));
             if (desktop) createFlavorJourney(el);
             cleanupText = createTextJourney(el, Boolean(desktop));
           }
+          el.dataset.motionReady = "true";
           const track = el.querySelector<HTMLElement>(".flavor-track");
           const nativeProgress = () => {
             if ((desktop && !reduce) || !track) return;
@@ -159,6 +151,7 @@ export default function MotionProvider({ children }: { children: ReactNode }) {
           track?.addEventListener("keydown", keyboard);
           return () => {
             cleanupText?.();
+            cleanupVideo?.();
             window.removeEventListener("wheel", clearTarget);
             track?.removeEventListener("touchstart", clearTarget);
             track?.removeEventListener("scroll", nativeProgress);
@@ -172,22 +165,33 @@ export default function MotionProvider({ children }: { children: ReactNode }) {
       const header = el.querySelector(".site-header");
       let boundaries: { id: string; top: number; bottom: number }[] = [];
       const cacheBoundaries = () => {
-        boundaries = ["flavors", "story", "launch", "story-preview"].flatMap(
-          (id) => {
-            const section = document.getElementById(id);
-            if (!section) return [];
-            const box = section.getBoundingClientRect();
-            return [
-              { id, top: box.top + scrollY, bottom: box.bottom + scrollY },
-            ];
-          },
-        );
+        boundaries = [
+          "home",
+          "swirl",
+          "flavors",
+          "story-preview",
+          "story",
+          "experience",
+          "launch",
+        ].flatMap((id) => {
+          const section = document.getElementById(id);
+          if (!section) return [];
+          const box = section.getBoundingClientRect();
+          return [{ id, top: box.top + scrollY, bottom: box.bottom + scrollY }];
+        });
       };
       const onScroll = () => {
-        const y = scrollY + 95;
-        const active = boundaries.find(
+        const y = scrollY + 120;
+        const active = boundaries.findLast(
           (section) => section.top <= y && section.bottom > y,
         )?.id;
+        header
+          ?.querySelectorAll<HTMLAnchorElement>(".desktop-nav a")
+          .forEach((link) => {
+            if (link.hash === `#${active}`)
+              link.setAttribute("aria-current", "location");
+            else link.removeAttribute("aria-current");
+          });
         header?.classList.toggle("is-scrolled", scrollY > 40);
         header?.classList.toggle(
           "is-light",
@@ -236,5 +240,9 @@ export default function MotionProvider({ children }: { children: ReactNode }) {
     },
     { scope: root },
   );
-  return <div ref={root}>{children}</div>;
+  return (
+    <div ref={root} className="motion-shell">
+      {children}
+    </div>
+  );
 }
