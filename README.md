@@ -1,62 +1,80 @@
 <div align="center">
-  <h1>SYMI — Crafted Frozen Yogurt</h1>
-  <p><strong>Screenshot-driven interactive brand experience with editorial motion.</strong></p>
-  <p><a href="https://symi.syahmiaof.my">Live experience</a> · <a href="https://syahmiaof.my/projects">Portfolio</a></p>
+  <h1>symi</h1>
+  <p><strong>SYMI — Mediterranean Crafted Frozen Yogurt Brand Experience</strong></p>
+  <p>
+    <a href="https://symi.syahmiaof.my"><img src="https://img.shields.io/badge/Demo-Live-60E1B5?style=for-the-badge&logoColor=60E1B5&labelColor=101713" alt="Demo"></a>
+    <a href="https://github.com/syahmiaof/symi"><img src="https://img.shields.io/badge/Source-GitHub-60E1B5?style=for-the-badge&logo=github&logoColor=60E1B5&labelColor=101713" alt="GitHub"></a>
+    <a href="https://github.com/syahmiaof/symi/actions"><img src="https://img.shields.io/badge/CI-Passing-60E1B5?style=for-the-badge&logo=githubactions&logoColor=60E1B5&labelColor=101713" alt="CI"></a>
+    <a href="LICENSE"><img src="https://img.shields.io/badge/License-MIT-60E1B5?style=for-the-badge&logoColor=60E1B5&labelColor=101713" alt="License"></a>
+  </p>
+  <p>
+    <img src="https://img.shields.io/badge/Next.js-16.3-101713?style=for-the-badge&logo=nextdotjs&logoColor=60E1B5" alt="Next.js">
+    <img src="https://img.shields.io/badge/React-19.3-101713?style=for-the-badge&logo=react&logoColor=60E1B5" alt="React">
+    <img src="https://img.shields.io/badge/TypeScript-5.9-101713?style=for-the-badge&logo=typescript&logoColor=60E1B5" alt="TypeScript">
+    <img src="https://img.shields.io/badge/GSAP-3.14-101713?style=for-the-badge&logo=greensock&logoColor=60E1B5" alt="GSAP">
+    <img src="https://img.shields.io/badge/Lenis-1.3-101713?style=for-the-badge&logoColor=60E1B5&labelColor=101713" alt="Lenis">
+    <img src="https://img.shields.io/badge/Vitest-5.0-101713?style=for-the-badge&logo=vitest&logoColor=60E1B5" alt="Vitest">
+  </p>
 </div>
+
+---
 
 ![SYMI Crafted Frozen Yogurt website](https://raw.githubusercontent.com/syahmiaof/syahmiaof/main/public/images/symi.png)
 
 Frontend-only brand experience for SYMI, launching 2027. The supplied mockups define the visual direction; the implementation rebuilds the experience as responsive HTML, React, CSS and GSAP motion.
 
-## Experience
+## 🍦 Experience
 
-- Editorial hero with product photography and direct navigation.
-- Scroll-controlled Swirl sequence with a rendered explosion video and HTML annotations.
-- Horizontal desktop flavor exploration with keyboard controls and native mobile swipe.
-- Responsive story layouts designed separately for desktop and mobile.
-- Reduced-motion behavior that removes pinning and smooth scrolling.
-- Accessible mobile navigation with Escape and focus restoration.
+- **Editorial Hero**: Navy Mediterranean architecture, large kiwi cup, bold editorial headline, cream CTA and four benefit icons.
+- **Swirl Keyframe**: A photographic exploded keyframe with yogurt, sauce ribbons, kiwi, granola and a tilted cup; real HTML annotations and marble benefit row.
+- **Flavor Showcase**: Horizontal desktop flavor exploration with keyboard controls and native mobile swipe.
+- **Responsive Story**: Deliberate 45/55 editorial opening, staff/product/copy mosaic and three photographic zones.
+- **Accessibility & Motion**: Reduced-motion behavior removes pinning and smooth scrolling; mobile navigation with Escape and focus restoration.
 
-Page content uses Next.js Server Components. Scoped GSAP handles animation cleanup, with one ticker driving desktop Lenis. The project contains no backend, authentication, payments or analytics collection.
+## 🛠️ Run and Verify
 
-## Run
-
-~~~bash
+```bash
+# Install dependencies
 npm ci
+
+# Run development server
 npm run dev
+
+# Run linters and typecheck
 npm run lint
 npm run typecheck
+
+# Run automated unit tests
+npm test
+
+# Build and start production server
 npm run build
 npm start
-~~~
+```
 
-## Visual sources
+## 📸 Visual Sources & Design
 
-Read DESIGN.md before visual changes. Production artwork is stored locally as optimised WebP assets. data/visual-assets.md records generated plates, source crops and prompts. The supplied reference mockups are preserved outside deployment and are not used as full-page backgrounds.
+Read `DESIGN.md` before visual changes. Production artwork is stored locally as optimised WebP assets. `data/visual-assets.md` records generated plates, source crops and prompts. The supplied reference mockups are preserved outside deployment and are not used as full-page backgrounds.
 
-## Browser QA
+## 🧪 Browser QA
 
-~~~bash
+```bash
 npx playwright install chromium webkit
 npm run qa
 node scripts/motion-qa.mjs
 npm run qa:text
 npm run qa:mobile
 npm run qa:repair
-~~~
+```
 
-The checks cover desktop and mobile layouts, overflow, missing images, browser errors, navigation, keyboard controls, accessibility and reduced motion. Visual review remains a separate human step.
+The checks cover desktop and mobile layouts, overflow, missing images, browser errors, navigation, keyboard controls, accessibility and reduced motion.
 
-## Deployment
+## 🚀 Deployment
 
-Production: [symi.syahmiaof.my](https://symi.syahmiaof.my)
+- **Production Live**: [https://symi.syahmiaof.my](https://symi.syahmiaof.my)
+- **Deployment Platform**: Vercel automated deployment on `main` branch.
 
-Vercel deploys the main branch. Credentials, original source video and temporary QA evidence stay outside deployment.
+## 📄 License
 
-## Limits
-
-The explosion uses optimised rendered video with HTML annotations; it is not a live 3D fluid simulation. Generated photographic details can differ from the supplied references. Browser emulation does not establish physical-device Safari performance.
-
-## Builder
-
-[Muhammad Syahmi](https://syahmiaof.my)
+This project is licensed under the [MIT License](LICENSE).  
+Copyright © 2026 Muhammad Syahmi (syahmiaof).
